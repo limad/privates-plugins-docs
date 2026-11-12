@@ -11,7 +11,7 @@ pluginId: limad44
 	<a class="plugin-card__header" href="{{site.baseurl}}/plugin-f2ban/{{page.lang}}">
 	<img src="{{site.baseurl}}/plugin-f2ban/images/f2ban_icon.png" alt="f2ban">
 	<div>
-		<h2 class="plugin-card__name">fail2ban</h2>
+		<h2 class="plugin-card__name">f2ban</h2>
 		<span class="plugin-card__id">f2ban</span>
 	</div>
 	</a>
