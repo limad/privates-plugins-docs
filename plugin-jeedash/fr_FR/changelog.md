@@ -23,6 +23,10 @@ pluginId: jeedash
 - **Caméras** : l'image passe par Jeedom, l'adresse de la caméra n'est plus visible dans le navigateur
 - Changement du port SSE ou du port socket : le démon redémarre et le serveur web est réaligné automatiquement
 - Temps réel : seules les commandes affichées sont suivies (moins de charge)
+- **Accès par le DNS Jeedom** : le temps réel n'y passe pas ; l'application relit alors les valeurs de l'onglet affiché toutes les 10 secondes, et revient au temps réel dès qu'il est disponible (voyant orange fixe en attendant)
+- Utilisateur limité : les widgets des équipements non autorisés ne sont plus envoyés à son navigateur (ni nom ni commande)
+- Sécurité : la clé API n'est plus acceptée dans l'adresse, seulement dans un en-tête
+- Jeedom en HTTPS ou sur un autre port que 80 : le contrôle de connexion du temps réel et la page de santé utilisent l'accès interne configuré dans Jeedom
 
 # 06/11/2026
 

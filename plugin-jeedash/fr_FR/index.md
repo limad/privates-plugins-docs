@@ -58,7 +58,8 @@ Sur grand écran, la barre latérale se replie en une colonne d'icônes.
 ##### Voyant de connexion
  - **Couleur du thème** : valeurs en direct.
  - **Orange clignotant** : reconnexion en cours (automatique).
- - **Rouge** : temps réel indisponible.
+ - **Orange fixe** : temps réel indisponible, les valeurs de l'onglet affiché sont relues toutes les 10 secondes. Le temps réel est retenté régulièrement et reprend dès qu'il passe.
+ - **Rouge** : hors ligne.
 
 ##### Mode édition (administrateurs)
  - **Ajouter** : choisir le type de widget, l'équipement puis les commandes. Un aperçu s'affiche en direct.
@@ -93,13 +94,13 @@ Ouvrir `/plugins/jeedash/app/` dans le navigateur du téléphone, puis **Ajouter
  - Seules les commandes présentes dans le tableau de bord peuvent être lues ou actionnées, et le nombre d'actions par seconde est limité.
 
 #### 6 - Accès à distance
- - **Par le DNS Jeedom (`*.jeedom.link`)** : l'application, la connexion et les actions fonctionnent, mais le **temps réel ne passe pas** par ce relais (le voyant reste déconnecté) : recharger la page pour actualiser les valeurs.
+ - **Par le DNS Jeedom (`*.jeedom.link`)** : l'application, la connexion et les actions fonctionnent, mais le relais ne laisse pas passer le temps réel. Après 10 secondes, l'application relit d'elle-même les valeurs de l'onglet affiché toutes les 10 secondes (voyant orange fixe).
  - **Par un VPN** (Tailscale, WireGuard…) ou un accès direct à votre réseau : tout fonctionne, temps réel compris.
 
 #### 7 - Dépannage
-##### Le voyant reste rouge
+##### Le voyant reste orange ou rouge
  - Vérifier que le démon est démarré (page du plugin).
- - En accès par le DNS Jeedom : comportement connu, voir la section 6.
+ - En accès par le DNS Jeedom : voyant orange fixe normal, voir la section 6.
  - Consulter les logs `jeedash` et `jeedash_daemon`.
 
 ##### « Forbidden » en ouvrant l'application
