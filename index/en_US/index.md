@@ -157,4 +157,19 @@ pluginId: limad44
 	</div>
 </div>
 
+<div class="plugin-card">
+	<a class="plugin-card__header" href="{{site.baseurl}}/plugin-jeemarket/fr_FR">
+	<img src="{{site.baseurl}}/plugin-jeemarket/images/jeemarket_icon.png" alt="jeemarket">
+	<div>
+		<h2 class="plugin-card__name">JeeMarket</h2>
+		<span class="plugin-card__id">jeemarket</span>
+	</div>
+	</a>
+	<p class="plugin-card__desc">Jeedom Market developer account monitoring: balance, earnings per period and per plugin, plugin versions and statistics, payment alerts, and GitHub branch promotion.</p>
+	<div class="plugin-card__links">
+	<a href="{{site.baseurl}}/plugin-jeemarket/fr_FR">Documentation</a>
+	<a href="{{site.baseurl}}/plugin-jeemarket/fr_FR/changelog">Changelog</a>
+	</div>
+</div>
+
 </div><!-- /plugin-grid -->
