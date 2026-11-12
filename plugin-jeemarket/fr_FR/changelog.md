@@ -13,6 +13,8 @@ pluginId: jeemarket
 
 # 12/11/2026
 
+- Bouton **Historique** sur l'équipement : reconstitue l'**historique mensuel des gains** depuis toutes les ventes du Market (gain du mois, gain de l'année, cumul via la commande **Gains cumulés**, et par plugin). Un point par mois ; ré-exécutable sans doublon. La purge d'historique est désactivée sur ces commandes pour garder les points anciens
+- La commande de notification n'est plus dans la configuration du plugin : elle se choisit désormais sur l'équipement, avec **deux commandes distinctes** — une pour les **Alertes**, une pour l'**Annonce quotidienne**. L'ancienne commande globale est reprise automatiquement dans ces deux champs à la mise à jour
 - Branches GitHub **non renseignées** dans la fiche Market : elles ne sont plus remplacées par `beta` / `stable` par défaut. Les modales **Market** et **GitHub** les affichent « non renseignée », le bouton **Forcer MAJ** de la branche est grisé et la promotion vers une branche non renseignée est refusée avec un message clair (cas d'un plugin sans dépôt ni branche, ou bêta seule)
 
 # 06/11/2026

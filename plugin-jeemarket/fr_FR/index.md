@@ -17,14 +17,16 @@ JeeMarket se connecte à votre compte **développeur** du Market Jeedom et remon
 Le Market n'ayant pas d'API publique pour ces données, le plugin lit les pages du Market avec votre compte (comme votre navigateur). Si le Market modifie ses pages, le plugin signale l'erreur dans son log.
 
 #### 2 - Configuration du plugin
-Installer et activer le plugin. Pour recevoir les alertes, choisir dans la configuration du plugin la **commande de messagerie** (commande action de type message) utilisée pour les notifications.
+Installer et activer le plugin. Le compte Market et, en option, GitHub se configurent ici ; les commandes de notification se choisissent sur l'équipement (sections *Alertes* et *Annonce quotidienne*).
 
 #### 3 - Équipement
-Dans la **configuration du plugin**, renseigner l'**email** et le **mot de passe** du Market puis cliquer sur **Valider le compte** (l'œil affiche le mot de passe). Les deux sont enregistrés **chiffrés**. Le plugin se connecte au Market et vérifie qu'il s'agit bien d'un **compte développeur** (un simple utilisateur est refusé) : seulement dans ce cas, l'équipement **JeeMarket** est créé. Il n'y a **qu'un seul équipement** (pas de bouton Ajouter ni Dupliquer) ; enregistrer la configuration valide aussi le compte si les identifiants ont changé. Les comptes avec **code à 2 facteurs** ne sont pas gérés. À la mise à jour, les identifiants des anciens équipements sont repris dans la configuration du plugin.
+Dans la **configuration du plugin**, renseigner l'**email** et le **mot de passe** du Market puis cliquer sur **Tester le compte** (l'œil affiche le mot de passe). Les deux sont enregistrés **chiffrés**. Le plugin se connecte au Market et vérifie qu'il s'agit bien d'un **compte développeur** (un simple utilisateur est refusé) : seulement dans ce cas, l'équipement **JeeMarket** est créé. Il n'y a **qu'un seul équipement** (pas de bouton Ajouter ni Dupliquer) ; enregistrer la configuration valide aussi le compte si les identifiants ont changé. Les comptes avec **code à 2 facteurs** ne sont pas gérés. À la mise à jour, les identifiants des anciens équipements sont repris dans la configuration du plugin.
 
 Cases d'alerte :
  - être alerté lorsque le solde non payé évolue ;
  - être alerté lorsque le paiement est détecté (le solde non payé repasse à 0).
+
+Choisir la **commande** (type message) qui enverra ces alertes ; vide = aucune alerte envoyée.
 
 #### 4 - Commandes
 | Commande | Contenu |
@@ -32,12 +34,15 @@ Cases d'alerte :
 | Solde total | Montant déjà versé |
 | Solde non payé | Montant en cours (non encore reversé) |
 | Gain du jour / 7 derniers jours / du mois / de l'année | Somme de la part développeur des ventes de la période |
+| Gains cumulés | Somme de la part développeur de toutes les ventes (total gagné) |
 | Gain mois - *plugin* / Gain année - *plugin* | Mêmes gains pour chaque plugin vendu dans l'année |
 | Rafraichir | Lance une actualisation immédiate |
 
 Les commandes utilisent les widgets **iso** (installés avec le plugin). Le bouton **Défaut config** de l'équipement recrée les commandes de base manquantes et réapplique ces widgets, sans écraser un autre widget choisi. Le **mode édition** (icône crayon) du tableau des commandes permet d'ajuster nom, unité, min/max, visibilité et historisation.
 
 Les gains sont historisés. Le rafraîchissement automatique a lieu toutes les heures (ainsi que le détail des plugins) ; le bouton « Actualiser » force une mise à jour immédiate.
+
+Le bouton **Historique** de la barre de l'équipement reconstitue l'**historique mensuel des gains** à partir de **toutes les ventes du Market** : un point par mois pour le gain du mois, le gain de l'année (remis à zéro chaque janvier), le cumul total (commande **Gains cumulés**) et, pour les plugins dont la commande par plugin existe déjà (vendus dans l'année), le gain du mois et de l'année. Les points déjà présents sur la période sont remplacés (ré-exécutable sans doublon). La purge d'historique est désactivée sur ces commandes pour que les points anciens ne soient pas effacés par le nettoyage de Jeedom.
 
 #### 5 - Modale « Gains et plugins »
 Bouton **Gains et plugins** de la page du plugin (ou icône € de la barre de l'équipement). Affiche les gains par période, puis un tableau de vos plugins (installations, achats, téléchargements, note, gains du mois, de l'année et total). Les données viennent du cache ; le bouton **Actualiser depuis le Market** force une mise à jour complète. L'option **Plugins exclus des gains** (page de l'équipement) écarte les ventes de plugins repris d'un autre développeur.
@@ -78,12 +83,12 @@ En cas de **conflit**, rien n'est modifié : fusionnez en local (`git merge`), r
 Boxs enregistrées sur votre compte Market (URL, IP, version, dernière synchronisation), service pack et état des services, et état public des services Jeedom (status.jeedom.com).
 
 #### 5 quater - Annonce quotidienne
-Sur la page de l'équipement, section **Annonce quotidienne** : cochez *Activer*, choisissez l'**heure**, la **commande** message qui lira ou enverra l'annonce (par exemple la commande « Speak » d'une enceinte Alexa ; vide = commande de la configuration du plugin) le champ **titre** (son nom est lu sur la commande : « Volume » pour « Faire parler Alexa » ; vide = rien n'est transmis avec une commande dédiée) et, si besoin, le **texte**. Balises : `#gain_jour#`, `#gain_7j#`, `#gain_mois#`, `#gain_annee#`, `#solde_np#`, `#solde_total#`, `#name#` (montants en euros, virgule décimale). Texte par défaut : « Gains du jour : #gain_jour# euros. Solde en cours : #solde_np# euros. »
+Sur la page de l'équipement, section **Annonce quotidienne** : cochez *Activer*, choisissez l'**heure**, la **commande** message qui lira ou enverra l'annonce (par exemple la commande « Speak » d'une enceinte Alexa ; vide = aucune annonce envoyée) le champ **titre** (son nom est lu sur la commande : « Volume » pour « Faire parler Alexa » ; vide = rien n'est transmis avec une commande dédiée) et, si besoin, le **texte**. Balises : `#gain_jour#`, `#gain_7j#`, `#gain_mois#`, `#gain_annee#`, `#solde_np#`, `#solde_total#`, `#name#` (montants en euros, virgule décimale). Texte par défaut : « Gains du jour : #gain_jour# euros. Solde en cours : #solde_np# euros. »
 
 Chaque jour, à l'heure choisie (tolérance de 30 minutes si Jeedom était occupé), le plugin interroge d'abord le Market pour avoir des chiffres à jour, puis envoie l'annonce une seule fois. Si l'interrogation échoue, l'annonce est annulée (voir le log `jeemarket`). Le bouton **Tester l'annonce** l'envoie immédiatement avec les valeurs déjà en mémoire, à partir de la configuration enregistrée.
 
 #### 6 - Santé et liens
-Sur la page du plugin : **Santé** affiche pour chaque équipement les contrôles (activation, identifiants, dernier refresh réussi ou en échec, fraîcheur des données, alertes et commande de messagerie), les soldes et gains en direct et les gains par plugin, avec un bouton d'actualisation. **Liens** regroupe l'espace développeur du Market, la liste de vos plugins, la documentation, le changelog et la Community. **Assistance** ouvre une demande d'aide pré-remplie sur le forum.
+Sur la page du plugin : **Santé** affiche pour chaque équipement les contrôles (activation, identifiants, dernier refresh réussi ou en échec, fraîcheur des données, alertes et commande d'alerte), les soldes et gains en direct et les gains par plugin, avec un bouton d'actualisation. **Liens** regroupe l'espace développeur du Market, la liste de vos plugins, la documentation, le changelog et la Community. **Assistance** ouvre une demande d'aide pré-remplie sur le forum.
 
 #### 7 - Migration depuis « Gain Market »
 Ce plugin remplace l'ancien plugin *Gain Market*. À l'activation de JeeMarket, les équipements, les commandes (et leur historique) et la configuration de l'ancien plugin sont repris automatiquement. L'ancien plugin peut ensuite être supprimé.
