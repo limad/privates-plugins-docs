@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="{{page.lang}}">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Documentation {{ page.title }} — Limad44 Jeedom plugins">
+	<title>{{ page.title }} — Limad44 Documentation</title>
+	<link rel="icon" type="image/png" href="{{site.baseurl}}/favicon.ico">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="{{site.baseurl}}/assets/css/styles.css">
+</head>
+
+<body>
+
+	<!-- ── Navbar ─────────────────────────────────────────────────── -->
+	<nav id="navbar" class="hide-on-print">
+		<div class="nav-inner">
+
+			<div class="nav-breadcrumb">
+				<a href="{{site.baseurl}}">Limad44</a>
+				<span class="sep">/</span>
+				<span class="cur">{{ page.title }}</span>
+			</div>
+
+			<a class="nav-logo" href="{{site.baseurl}}">
+				<img src="{{site.baseurl}}/assets/images/logo_docs.png" alt="Limad44">
+			</a>
+
+			<ul class="nav-links">
+				<li><a href="{{site.forum}}">Community</a></li>
+				<li class="active"><a href="{{site.doc}}">Doc</a></li>
+			</ul>
+
+			<button id="nav-toggle" aria-label="Menu" aria-expanded="false">
+				<span></span><span></span><span></span>
+			</button>
+		</div>
+	</nav>
+
+	<!-- Mobile drawer -->
+	<div id="nav-drawer" aria-hidden="true">
+		<a href="{{site.baseurl}}">Accueil</a>
+		<a href="{{site.forum}}">Community</a>
+		<a href="{{site.doc}}" class="active">Doc</a>
+	</div>
+
+	<!-- ── Layout ─────────────────────────────────────────────────── -->
+	<div id="layout">
+
+		<!-- Sidebar -->
+		<aside id="sidebar" class="hide-on-print">
+
+			<div class="lang-selector">
+				<span class="lang-icon">language</span>
+				<select id="lang-select">
+					{% for lang in site.langs %}
+					<option value="{{ lang }}" {% if page.lang==lang %}selected{% endif %}>
+						{% if lang == "fr_FR" %}Français
+						{% elsif lang == "en_US" %}English
+						{% elsif lang == "ru_RU" %}Русский
+						{% elsif lang == "de_DE" %}Deutsch
+						{% elsif lang == "es_ES" %}Español
+						{% elsif lang == "it_IT" %}Italiano
+						{% else %}{{ lang }}{% endif %}
+					</option>
+					{% endfor %}
+				</select>
+			</div>
+
+			<div id="div_summary"></div>
+		</aside>
+
+		<!-- Content wrapper -->
+		<div id="content-wrapper">
+
+			<div id="mobile-toc" class="hide-on-print">
+				<div id="div_summary2"></div>
+			</div>
+
+			<article id="div_content">
+				{{content}}
+			</article>
+
+			<div id="bt_up" class="hide-on-print" role="button" aria-label="Retour en haut" tabindex="0">
+				keyboard_arrow_up
+			</div>
+
+		</div>
+	</div>
+
+	<script src="{{site.baseurl}}/assets/js/jquery-2.1.1.min.js"></script>
+	<script src="{{site.baseurl}}/assets/js/jquery.toc.js"></script>
+	<script>
+		$(function () {
+			var title = '{{ page.title }}';
+			document.title = title + ' — Limad44 Documentation';
+
+			/* Hamburger */
+			var $toggle = $('#nav-toggle');
+			var $drawer = $('#nav-drawer');
+
+			$toggle.on('click', function () {
+				var open = $drawer.hasClass('open');
+				$drawer.toggleClass('open');
+				$toggle.toggleClass('open');
+				$toggle.attr('aria-expanded', !open);
+			});
+
+			$(document).on('click', function (e) {
+				if (!$(e.target).closest('#nav-toggle, #nav-drawer').length) {
+					$drawer.removeClass('open');
+					$toggle.removeClass('open');
+				}
+			});
+
+			/* Language */
+			var langMatch = /\/([a-z]{2}_[A-Z]{2})\//.exec(window.location.href);
+			if (langMatch) { $('#lang-select').val(langMatch[1]); }
+
+			$('#lang-select').on('change', function () {
+				var match = /\/([a-z]{2}_[A-Z]{2})\//.exec(window.location.href);
+				if (match) {
+					window.location.href = window.location.href.replace(match[1], $(this).val());
+				}
+			});
+
+			/* TOC */
+			function buildTOC() {
+				$('#div_summary, #div_summary2').empty();
+				var label = '<span class="toc-label">' + title + '</span>';
+				var container = (window.innerWidth < 993) ? '#div_summary2' : '#div_summary';
+				$('#div_content').toc({ renderIn: container, selectors: 'h1,h2' });
+				$(container).prepend(label);
+			}
+
+			buildTOC();
+
+			var timer;
+			$(window).on('resize orientationchange', function () {
+				clearTimeout(timer);
+				timer = setTimeout(buildTOC, 120);
+			});
+
+			/* Back to top */
+			$('#bt_up').on('click keydown', function (e) {
+				if (e.type === 'click' || e.key === 'Enter') {
+					$('html, body').animate({ scrollTop: 0 }, 320);
+				}
+			});
+		});
+	</script>
+
+</body>
+
+</html>
