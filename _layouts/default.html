@@ -29,8 +29,12 @@
 
 			<!-- Logo (center) -->
 			<a class="nav-logo" href="{{site.baseurl}}">
-				<img src="{{site.market}}/filestore/market/plugin/images/{{page.pluginId}}_icon.png"
+				{% if page.pluginId %}
+				<img src="{{site.baseurl}}/plugin-{{page.pluginId}}/images/{{page.pluginId}}_icon.png"
 					alt="{{ page.pluginId }}">
+				{% else %}
+				<img src="{{site.baseurl}}/assets/images/logo_docs.png" alt="Limad44">
+				{% endif %}
 			</a>
 
 			<!-- Links (right, desktop) -->
