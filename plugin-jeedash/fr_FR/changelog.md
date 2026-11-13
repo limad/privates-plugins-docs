@@ -19,6 +19,8 @@ pluginId: jeedash
 - Écrans tactiles : boutons, interrupteurs et curseurs plus grands
 - Textes des widgets plus lisibles (taille minimale relevée)
 - Chargement du tableau de bord un peu plus léger
+- Textes de l'interface avec leurs accents
+- Graphique : indique « Commande non historisée » quand la commande n'a pas d'historique dans Jeedom
 
 # 12/11/2026
 
