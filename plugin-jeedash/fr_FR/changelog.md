@@ -11,6 +11,15 @@ pluginId: jeedash
 >
 >Pour rappel s'il n'y a pas d'information sur la mise à jour, c'est que celle-ci concerne uniquement de la mise à jour de documentation, de traduction ou de texte.
 
+# 13/11/2026
+
+- Téléphone : un widget plus large que l'écran ne déborde plus et n'écrase plus ses voisins
+- Le nombre de colonnes suit la place réellement disponible (barre latérale déduite) : tablettes et petits écrans moins serrés
+- Téléphone : en-tête plus compact (actions en icônes), widget **Équipement** sur une colonne
+- Écrans tactiles : boutons, interrupteurs et curseurs plus grands
+- Textes des widgets plus lisibles (taille minimale relevée)
+- Chargement du tableau de bord un peu plus léger
+
 # 12/11/2026
 
 - **Application autonome** : le tableau de bord s'ouvre à l'adresse `/plugins/jeedash/app/`, hors de l'interface Jeedom (plus léger et plus rapide), avec une **barre latérale** (horloge, onglets avec icône, actions) repliable sur grand écran. Le menu Jeedom y redirige
