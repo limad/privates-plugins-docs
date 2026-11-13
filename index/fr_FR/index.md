@@ -172,4 +172,19 @@ pluginId: limad44
 	</div>
 </div>
 
+<div class="plugin-card">
+	<a class="plugin-card__header" href="{{site.baseurl}}/plugin-jeedash/{{page.lang}}">
+	<img src="{{site.baseurl}}/plugin-jeedash/images/jeedash_icon.png" alt="jeedash">
+	<div>
+		<h2 class="plugin-card__name">JeeDash</h2>
+		<span class="plugin-card__id">jeedash</span>
+	</div>
+	</a>
+	<p class="plugin-card__desc">Tableau de bord temps réel autonome, installable sur téléphone : widgets, onglets, thèmes, accès par compte Jeedom avec respect des droits.</p>
+	<div class="plugin-card__links">
+	<a href="{{site.baseurl}}/plugin-jeedash/{{page.lang}}">Documentation</a>
+	<a href="{{site.baseurl}}/plugin-jeedash/{{page.lang}}/changelog">Changelog</a>
+	</div>
+</div>
+
 </div><!-- /plugin-grid -->
