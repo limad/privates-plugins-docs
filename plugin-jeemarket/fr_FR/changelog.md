@@ -11,6 +11,12 @@ pluginId: jeemarket
 >
 >Pour rappel s'il n'y a pas d'information sur la mise à jour, c'est que celle-ci concerne uniquement de la mise à jour de documentation, de traduction ou de texte.
 
+# 16/11/2026
+
+- Nouvelle modale **Suivi GitHub** (option GitHub, lecture seule) : pour chaque plugin, résultat de la **CI** sur les branches développement, bêta et stable (détail des jobs), **issues** et **PR** ouvertes, **PR Dependabot** et **alertes de sécurité**, avec liens vers GitHub, recherche et filtre « à traiter ». Suggestion de la communauté
+- Modale **GitHub** : l'aperçu de promotion signale quand **aucun changelog** n'est modifié par les commits à promouvoir
+- Nouvelle icône du plugin (panier du Market, sans symbole monétaire)
+
 # 12/11/2026
 
 - Bouton **Historique** sur l'équipement : reconstitue l'**historique mensuel des gains** depuis toutes les ventes du Market (gain du mois, gain de l'année, cumul via la commande **Gains cumulés**, et par plugin). Un point par mois ; ré-exécutable sans doublon. La purge d'historique est désactivée sur ces commandes pour garder les points anciens

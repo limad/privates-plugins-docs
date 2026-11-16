@@ -75,9 +75,18 @@ Vos branches peuvent porter **d'autres noms** (`dev`, `develop`, `master`, `main
 
 **Utilisation** : à l'ouverture, la modale **GitHub** analyse chaque plugin avec votre jeton (bouton **Analyser** pour recommencer). Colonnes : branche de développement, **bêta** et **stable** (dernier commit sur GitHub), avec pour bêta et stable l'état du Market (**à jour**, ou commit **pas encore repris**), et pour chaque branche le nombre de **commits à promouvoir** vers la suivante. Le lien **À quoi sert cette fenêtre ?** rappelle le rôle de chaque élément.
 
-Chaque plugin a deux boutons **→ bêta** et **→ stable** (au nom de vos branches), actifs seulement s'il y a des commits à promouvoir et un droit d'écriture. Un clic affiche d'abord un **aperçu** : nombre de commits et de fichiers, liste des commits, lien de comparaison GitHub et alertes (droit d'écriture manquant, branche protégée, commits présents sur la cible mais absents de la source, fichiers de workflow modifiés). Après confirmation, le plugin fusionne **exactement le commit affiché** dans la branche cible. Le passage en **stable** demande en plus de taper l'id du plugin.
+Chaque plugin a deux boutons **→ bêta** et **→ stable** (au nom de vos branches), actifs seulement s'il y a des commits à promouvoir et un droit d'écriture. Un clic affiche d'abord un **aperçu** : nombre de commits et de fichiers, liste des commits, lien de comparaison GitHub et alertes (droit d'écriture manquant, branche protégée, commits présents sur la cible mais absents de la source, fichiers de workflow modifiés, **aucun changelog** modifié par les commits à promouvoir). Après confirmation, le plugin fusionne **exactement le commit affiché** dans la branche cible. Le passage en **stable** demande en plus de taper l'id du plugin.
 
 En cas de **conflit**, rien n'est modifié : fusionnez en local (`git merge`), résolvez le conflit et poussez. Le Market reprend la nouvelle version à son scan quotidien ; le bouton **Forcer MAJ** reste réservé aux urgences. Chaque promotion est tracée en `warning` dans le log `jeemarket`.
+
+#### 5 bis (fin) - Modale « Suivi GitHub » (option)
+Bouton **Suivi GitHub** de la page du plugin (ou icône presse-papiers coché de la barre de l'équipement), affiché seulement si les fonctions GitHub sont activées. Vue d'ensemble de tous vos dépôts, **en lecture seule** (rien n'est modifié sur GitHub), avec votre jeton : une requête GraphQL par lot de 10 plugins, analyse lancée à l'ouverture (bouton **Analyser** pour recommencer).
+
+- **CI** des branches développement, bêta et stable : résultat des actions GitHub (et statuts externes) sur le dernier commit de chaque branche (**OK**, **échec**, **en cours**, **aucune CI**) avec le nombre de jobs réussis ; un clic sur le badge déplie la liste des jobs avec un lien vers chacun ;
+- **Issues** et **PR** ouvertes (hors Dependabot), **Dependabot** : PR ouvertes par Dependabot / alertes de sécurité ouvertes ; chaque compteur ouvre la page GitHub correspondante ;
+- champ **Rechercher** et case **Seulement les plugins à traiter** (CI en échec ou en cours, issue, PR, alerte, dépôt inaccessible).
+
+Permissions du jeton (lecture) selon les informations voulues : **Commit statuses** et **Actions** (CI), **Issues**, **Pull requests**, **Dependabot alerts**. Une information refusée par le jeton s'affiche **n/d** sans bloquer les autres.
 
 #### 5 ter - Modale « Mes boxs »
 Boxs enregistrées sur votre compte Market (URL, IP, version, dernière synchronisation), service pack et état des services, et état public des services Jeedom (status.jeedom.com).
