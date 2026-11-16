@@ -11,6 +11,16 @@ pluginId: jeedash
 >
 >Pour rappel s'il n'y a pas d'information sur la mise à jour, c'est que celle-ci concerne uniquement de la mise à jour de documentation, de traduction ou de texte.
 
+# 14/11/2026
+
+- **Temps réel sans le démon** : nouveau réglage **Temps réel** (Auto / Long-polling seul). En long-polling, les valeurs arrivent en direct par le serveur web de Jeedom, à une seconde près
+- **Accès par le DNS Jeedom** et démon arrêté : les valeurs restent en direct (long-polling) au lieu d'être relues toutes les 10 secondes
+- **Onglet depuis une pièce** : à la création d'un onglet, il peut être rempli automatiquement avec les équipements d'une pièce Jeedom
+- **Fiche d'équipement enrichie** : courbe sur 24 h ou 7 jours, infos en direct, actions utilisables selon leur type (curseur, liste, couleur, message), défaut de l'équipement ; le bouton retour du téléphone la ferme
+- Correction : depuis la fiche d'un équipement, ses autres commandes étaient refusées
+- **Ouverture plus rapide**, surtout à distance par le DNS Jeedom : le tableau de bord s'affiche en moins d'une seconde sur téléphone (jusqu'à 3 secondes auparavant)
+- Accès par le DNS Jeedom : les valeurs passent en direct dès l'ouverture, au lieu d'attendre une dizaine de secondes
+
 # 13/11/2026
 
 - Téléphone : un widget plus large que l'écran ne déborde plus et n'écrase plus ses voisins
