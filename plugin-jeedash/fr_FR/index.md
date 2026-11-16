@@ -34,6 +34,7 @@ Configuration du plugin :
 | Thème par défaut | Sombre | Thème au premier affichage (ensuite, chaque tableau de bord garde le sien) |
 | Port socket | `55009` | Communication interne entre Jeedom et le démon |
 | Port SSE | `55010` | Flux temps réel vers le navigateur |
+| Temps réel | Auto | **Auto** : flux du démon (SSE), long-polling s'il ne passe pas. **Long-polling seul** : valeurs en direct par le serveur web de Jeedom, sans le démon ni son port |
 
 Après un changement de port, le démon redémarre de lui-même et le serveur web est réaligné : rien d'autre à faire. Ne changer ces ports qu'en cas de conflit avec un autre service.
 
@@ -58,7 +59,7 @@ Sur grand écran, la barre latérale se replie en une colonne d'icônes.
 ##### Voyant de connexion
  - **Couleur du thème** : valeurs en direct.
  - **Orange clignotant** : reconnexion en cours (automatique).
- - **Orange fixe** : temps réel indisponible, les valeurs de l'onglet affiché sont relues toutes les 10 secondes. Le temps réel est retenté régulièrement et reprend dès qu'il passe.
+ - **Orange fixe** : temps réel interrompu (Jeedom injoignable), nouvel essai automatique.
  - **Rouge** : hors ligne.
 
 ##### Mode édition (administrateurs)
@@ -67,8 +68,18 @@ Sur grand écran, la barre latérale se replie en une colonne d'icônes.
  - Glisser-déposer pour réorganiser, poignée en bas à droite pour redimensionner.
  - Options d'un widget : **badges** (petites infos ou actions sur le widget), **condition d'affichage** (le widget n'apparaît que si une commande info vérifie une condition), **actions au toucher** (simple appui, double appui, appui long : action par défaut, panneau d'informations, bascule ou rien).
  - Onglets : jusqu'à 20, avec un nom et une icône (emoji).
+ - **Onglet depuis une pièce** : au bouton **+** des onglets, choisir une pièce Jeedom dans « Remplir depuis la pièce ». Un widget est créé par équipement visible de la pièce, son type choisi d'après les types génériques des commandes (lumière, interrupteur, volet, thermostat, capteur…) ; un équipement sans type générique reconnu devient une tuile **Équipement**. Les widgets restent à ajuster, puis **Sauver**.
  - **Sauver** enregistre ; **Annuler** abandonne les modifications.
  - Des modèles prêts à l'emploi (tableau de bord complet ou groupe de widgets) peuvent être appliqués.
+
+##### Fiche d'un équipement
+Le panneau d'informations (action au toucher **Panneau d'informations**, réglable par widget) affiche :
+ - l'éventuel **défaut** de l'équipement (pile, injoignable, alerte) ;
+ - la **valeur principale** et sa **courbe** sur **24 h** ou **7 jours** (min, max ; un toucher sur une autre info numérique ou binaire de la liste la trace à son tour) ;
+ - toutes les **infos visibles** de l'équipement, en direct ;
+ - ses **actions** selon leur type : bouton, curseur, liste de choix, couleur, message (titre et texte).
+
+Le bouton retour du téléphone ferme la fiche. Les protections Jeedom (droits, confirmation, code) s'appliquent comme sur les widgets.
 
 ##### Tout allumer / Tout éteindre
 Au-dessus de la grille, les boutons **Tout allumer** et **Tout éteindre** agissent sur les lumières et interrupteurs de **l'onglet affiché**. La liste des équipements concernés est affichée avant confirmation. Les équipements déjà dans l'état voulu ou indisponibles sont ignorés, et une commande protégée par un code ou une confirmation Jeedom est **sautée**, jamais forcée.
@@ -91,10 +102,10 @@ Ouvrir `/plugins/jeedash/app/` dans le navigateur du téléphone, puis **Ajouter
  - **Utilisateur** : lecture et actions, sans édition.
  - **Utilisateur limité** : seuls les équipements autorisés en lecture dans son profil Jeedom affichent leurs valeurs ; les autres widgets indiquent « Accès non autorisé ». Les actions demandent le droit d'exécution sur l'équipement.
  - Les **protections des commandes Jeedom** sont respectées : une commande qui demande une **confirmation** ou un **code d'accès** les demande aussi dans JeeDash.
- - Seules les commandes présentes dans le tableau de bord peuvent être lues ou actionnées, et le nombre d'actions par seconde est limité.
+ - Seules les commandes **visibles dans Jeedom** des équipements présents dans le tableau de bord peuvent être lues ou actionnées (widgets et fiche d'équipement), et le nombre d'actions par seconde est limité.
 
 #### 6 - Accès à distance
- - **Par le DNS Jeedom (`*.jeedom.link`)** : l'application, la connexion et les actions fonctionnent, mais le relais ne laisse pas passer le temps réel. Après 10 secondes, l'application relit d'elle-même les valeurs de l'onglet affiché toutes les 10 secondes (voyant orange fixe).
+ - **Par le DNS Jeedom (`*.jeedom.link`)** : tout fonctionne. Le relais ne laisse pas passer le flux du démon : après 10 secondes, l'application passe d'elle-même en long-polling (valeurs en direct, à une seconde près). Pour éviter ces 10 secondes, choisir **Long-polling seul** dans la configuration du plugin.
  - **Par un VPN** (Tailscale, WireGuard…) ou un accès direct à votre réseau : tout fonctionne, temps réel compris.
 
 #### 7 - Dépannage
