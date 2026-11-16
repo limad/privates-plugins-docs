@@ -7,6 +7,9 @@ pluginId: proteo
 
 # Changelog
 
+### 16/11/2026
+- **Divers** : icône du plugin allégée, le menu Plugins de Jeedom s'affiche plus vite (rendu identique).
+
 ### 09/11/2026
 - **Nouveautés et corrections** : installation des widgets plus sûre (version figée et vérifiée).
 

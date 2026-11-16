@@ -7,6 +7,10 @@ pluginId: router9
 
 # Changelog
 
+## 2026-11-16
+
+- Icône du plugin allégée, le menu Plugins de Jeedom s'affiche plus vite (rendu identique).
+
 ## 2026-10-07
 
 - Correction : le handler AJAX ne se chargeait pas (chemin de `core.inc.php` erroné), ce qui rendait inopérants le scan des providers, le bouton *Forcer template Iso* et le panel *Live Monitor*

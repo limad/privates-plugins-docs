@@ -11,6 +11,10 @@ pluginId: jeedash
 >
 >Pour rappel s'il n'y a pas d'information sur la mise à jour, c'est que celle-ci concerne uniquement de la mise à jour de documentation, de traduction ou de texte.
 
+# 16/11/2026
+
+- Icône du plugin allégée, le menu Plugins de Jeedom s'affiche plus vite (rendu identique).
+
 # 14/11/2026
 
 - **Temps réel sans le démon** : nouveau réglage **Temps réel** (Auto / Long-polling seul). En long-polling, les valeurs arrivent en direct par le serveur web de Jeedom, à une seconde près
