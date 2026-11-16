@@ -9,6 +9,10 @@ pluginId: f2ban
 
 # Changelog — f2ban
 
+## 2026-11-16
+
+- Icône du plugin allégée, le menu Plugins de Jeedom s'affiche plus vite (rendu identique).
+
 ## 2026-11-06
 
 - Types génériques : les commandes *Rafraichir*, *Banip*, *Unbanip*, les compteurs, listes d'IP, *Durée de ban* et compteurs par pays n'ont plus les types *Générique info/action* (ils n'apportaient rien aux applications ni aux ponts Alexa/Matter). Seul *En ligne* garde son type (*Connecté*). Les commandes existantes sont corrigées une fois à la mise à jour, uniquement si elles ont encore le type posé par le plugin (un type que vous avez choisi est conservé)

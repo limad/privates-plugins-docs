@@ -7,6 +7,12 @@ pluginId: cloudflare
 
 # Changelog — plugin cloudflare
 
+## Version en cours de développement
+
+### 16/11/2026
+
+- **Divers** : icône du plugin allégée, le menu Plugins de Jeedom s'affiche plus vite (rendu identique).
+
 ## V1
 
 ### Décision d'architecture : daemon `cloudflared`

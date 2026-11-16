@@ -9,6 +9,10 @@ pluginId: f2ban
 
 # Changelog — f2ban
 
+## 2026-11-16
+
+- Lighter plugin icon, so Jeedom's Plugins menu shows up faster (same look).
+
 ## 2026-11-06
 
 - Generic types: the *Refresh*, *Banip*, *Unbanip* commands, the counters, IP lists, *Ban time* and per-country counters no longer have the *Generic info/action* types (they brought nothing to apps and voice assistants); *Online* keeps *Connected*. Applied on update, unless the type was changed by hand
