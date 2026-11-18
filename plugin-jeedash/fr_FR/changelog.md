@@ -18,6 +18,7 @@ pluginId: jeedash
 - **Onglet d'accueil** : chaque utilisateur choisit l'onglet affiché à l'ouverture, sur tous ses appareils
 - Les boutons Thème, Compact et Plein écran de la barre latérale passent dans les Réglages
 - **Sécurité** : les actions d'administration (logs, démons, messages, partages) sont réservées à un administrateur connecté ; le Chat n'ouvre que l'envoi et la réponse des assistants partagés, un compte à la fois par assistant (un autre compte est invité à patienter) ; un profil restreint ne voit plus les messages de Jeedom
+- Réponses du serveur jusqu'à 6 fois plus légères, et une requête de moins à l'ouverture pour les tuiles équipement
 - **Menu ⋮ sur chaque tuile** : Détails, Caméra en grand, Masquer (pour votre compte, réaffichage dans Réglages > Éléments masqués) et, pour un administrateur, Modifier, Dupliquer, Déplacer vers un onglet, Supprimer. L'en-tête rappelle le plugin de l'équipement
 - Thermostat : chiffres du cadran en blocs, et la température mesurée n'est plus minuscule en cartes compactes
 - **Chat IA** : écrire à un assistant du plugin ai_assistant et lire sa réponse, avec dictée vocale ; un administrateur choisit les assistants partagés (Réglages > Chat IA)
