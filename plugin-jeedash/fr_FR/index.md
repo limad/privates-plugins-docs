@@ -11,7 +11,7 @@ pluginId: jeedash
 JeeDash est un **tableau de bord temps réel** pour Jeedom, servi comme une **application web autonome** à l'adresse `/plugins/jeedash/app/` de votre Jeedom :
  - une grille de **widgets** (31 types : lumières, volets, thermostats, capteurs, caméras, médias, énergie, météo, alarmes…) organisée en **onglets** ;
  - des valeurs mises à jour **en direct**, sans recharger la page ;
- - **7 thèmes** (Dark, Light, Minimalist, Mushroom, Nord, Solarized, Aurora), un mode compact et un mode plein écran ;
+ - **8 thèmes** (JeeDash, Delprat, Ghome, Minimalist, Mushroom, Nord, Solarized, Aurora), chacun en version claire et sombre, et une page **Réglages** (taille, police, cartes compactes, horloge, plein écran…) ;
  - une application **installable** sur l'écran d'accueil d'un téléphone ou d'une tablette ;
  - l'accès se fait avec **votre compte Jeedom** et respecte ses droits.
 
@@ -31,7 +31,7 @@ Configuration du plugin :
 
 | Paramètre | Défaut | Rôle |
 |---|---|---|
-| Thème par défaut | Sombre | Thème au premier affichage (ensuite, chaque tableau de bord garde le sien) |
+| Thème par défaut | JeeDash | Thème des comptes qui n'en ont pas choisi dans Réglages > Thèmes |
 | Port socket | `55009` | Communication interne entre Jeedom et le démon |
 | Port SSE | `55010` | Flux temps réel vers le navigateur |
 | Temps réel | Auto | **Auto** : flux du démon (SSE), long-polling s'il ne passe pas. **Long-polling seul** : valeurs en direct par le serveur web de Jeedom, sans le démon ni son port |
@@ -50,11 +50,42 @@ Ce relais est écrit à l'installation, à la mise à jour et au changement du p
 ##### Barre latérale
 La barre latérale (à gauche sur grand écran, en haut sur téléphone) contient l'horloge, le voyant de connexion temps réel, la liste des **onglets** et les actions :
  - **Éditer** (ou touche `E`) : passe en mode édition ;
- - **Thème**, **Compact**, **Plein écran** ;
+ - **Réglages** : page des réglages (voir ci-dessous) ;
  - **Export** / **Import** : sauvegarde et restauration du tableau de bord (fichier JSON) ;
  - **Jeedom** : retour à l'interface Jeedom.
 
 Sur grand écran, la barre latérale se replie en une colonne d'icônes.
+
+##### Alertes, Analyse, Diagnostic
+Les boutons **Alertes** et **Analyse** de la barre latérale ouvrent des pages qui remplacent la grille (adresses `#alerts` et `#analysis`) ; un clic sur un onglet y ramène.
+ - **Alertes** : appareils en défaut (bouton **Voir** pour aller à leur tuile), messages Jeedom regroupés par texte semblable. Un administrateur peut les supprimer ; il voit aussi les erreurs des logs des dernières 24 h (bouton **Voir le log**) et les mises à jour en attente. Le compteur du bouton additionne appareils en défaut et messages à traiter ou en erreur.
+ - **Analyse** : niveau des piles de tous les équipements (seuils de Jeedom). Un administrateur voit aussi la santé de Jeedom et les démons des plugins, qu'il peut démarrer ou relancer.
+ - **Diagnostic** (Réglages > Diagnostic) : mesures de l'appareil, **Mesurer maintenant** et **Copier le rapport** (sans nom d'équipement).
+
+##### Chat, Agendas, thèmes perso
+ - **Chat** (bouton présent dès qu'un assistant est partagé) : écrire à un assistant du plugin ai_assistant et lire sa réponse ; dictée vocale si le navigateur la propose. Un administrateur choisit les assistants dans **Réglages > Chat IA** ; leur réponse arrive en direct.
+ - **Agendas** (à afficher dans **Réglages > Général**) : agendas du plugin Agenda, plage en cours, prochaines plages. Un administrateur règle début, fin, jours et jours fériés d'une plage répétée par jours, ou active / désactive un agenda. Enregistrer une plage qui couvre l'heure actuelle lance ses actions.
+ - **Thèmes perso** (**Réglages > Thèmes**) : **Créer un thème** part du thème affiché ; chaque thème a une version claire et une sombre (10 couleurs) et un arrondi, avec aperçu en direct et alerte de contraste. **Exporter** / **Importer un fichier** (JSON). Un administrateur peut **Partager** un thème à tous les comptes.
+
+##### Tuile scénario
+Le type **Scénario** (éditeur de widget) lance ou arrête un scénario Jeedom choisi dans la liste. La tuile affiche son état (en cours, arrêté, désactivé) et son dernier lancement, relus toutes les 10 secondes. Un utilisateur limité n'agit que sur les scénarios autorisés par ses droits Jeedom.
+
+##### Menu ⋮ des tuiles
+Chaque tuile a un bouton **⋮** en haut à droite (hors mode édition). Son menu indique le plugin de l'équipement et propose :
+ - **Détails** : fiche de l'équipement (aussi par un appui long sur la tuile) ;
+ - **Caméra** (tuile caméra) : l'image ou le flux en grand ;
+ - **Masquer** : retire la tuile pour votre compte, sur tous vos appareils (réaffichage dans **Réglages > Éléments masqués**) ;
+ - pour un administrateur : **Modifier** (ouvre l'éditeur en mode édition), **Dupliquer**, **Déplacer vers** un autre onglet, **Supprimer** ; ces trois derniers sont enregistrés tout de suite.
+
+Un simple clic sur une tuile allume ou éteint l'équipement quand c'est possible, sinon ne fait rien.
+
+##### Réglages
+Le bouton **Réglages** ouvre une page (adresse `/plugins/jeedash/app/#settings`) qui remplace la grille ; un clic sur un onglet y ramène.
+ - **Thèmes** : mode **Auto** (suit le réglage clair ou sombre du téléphone), **Clair** ou **Sombre**, propre à l'appareil ; **thème** au choix, enregistré pour votre compte (tous vos appareils). Chaque thème a une version claire et une version sombre : le mode choisit laquelle s'affiche.
+ - **Cartes** (cet appareil) : disposition **Complètes**, **Compactes** ou **Mini** (tuiles moins hautes), et arrondi des cartes.
+ - **Écran** (cet appareil) : taille de l'interface, police, taille de l'horloge (ou masquée), plein écran.
+ - **Général** (votre compte) : **onglet d'accueil**, affiché à l'ouverture sur tous vos appareils. Une adresse qui désigne un onglet (`#tab=…`) reste prioritaire.
+ - **Connexion** : box et compte connectés, ouverture de Jeedom, déconnexion. La version de JeeDash est indiquée en bas de page.
 
 ##### Voyant de connexion
  - **Couleur du thème** : valeurs en direct.

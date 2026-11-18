@@ -11,6 +11,30 @@ pluginId: jeedash
 >
 >Pour rappel s'il n'y a pas d'information sur la mise à jour, c'est que celle-ci concerne uniquement de la mise à jour de documentation, de traduction ou de texte.
 
+# 18/11/2026
+
+- **Thèmes clairs et sombres** : 8 thèmes (JeeDash, Delprat, Ghome, Minimalist, Mushroom, Nord, Solarized, Aurora), chacun en version claire et sombre ; Aurora passe du violet au bleu cyan. Le mode Auto (suit le téléphone), Clair ou Sombre se règle par appareil ; le thème choisi suit votre compte sur tous vos appareils. Les anciens thèmes Dark et Light deviennent le thème JeeDash
+- **Page Réglages** (bouton Réglages de la barre latérale) : thèmes, taille de l'interface, police, cartes Complètes / Compactes / Mini, arrondi des cartes, taille de l'horloge, plein écran
+- **Onglet d'accueil** : chaque utilisateur choisit l'onglet affiché à l'ouverture, sur tous ses appareils
+- Les boutons Thème, Compact et Plein écran de la barre latérale passent dans les Réglages
+- **Menu ⋮ sur chaque tuile** : Détails, Caméra en grand, Masquer (pour votre compte, réaffichage dans Réglages > Éléments masqués) et, pour un administrateur, Modifier, Dupliquer, Déplacer vers un onglet, Supprimer. L'en-tête rappelle le plugin de l'équipement
+- Thermostat : chiffres du cadran en blocs, et la température mesurée n'est plus minuscule en cartes compactes
+- **Chat IA** : écrire à un assistant du plugin ai_assistant et lire sa réponse, avec dictée vocale ; un administrateur choisit les assistants partagés (Réglages > Chat IA)
+- **Agendas** : plages du plugin Agenda, en cours et prochaines ; un administrateur règle heures, jours et jours fériés, ou coupe un agenda (bouton à afficher dans Réglages > Général)
+- **Éditeur de thèmes** : créer un thème (versions claire et sombre, arrondi), le modifier avec aperçu en direct et contrôle des contrastes, l'exporter ou l'importer ; un administrateur peut le partager à tous les comptes
+- **Page Alertes** (barre latérale, avec un compteur) : appareils en défaut, messages Jeedom regroupés (à traiter, erreurs, informations), et pour un administrateur les erreurs des logs des dernières 24 h et les mises à jour en attente
+- **Page Analyse** : piles de tous les équipements (seuils de Jeedom), et pour un administrateur la santé de Jeedom et les démons des plugins, avec Démarrer / Relancer
+- **Diagnostic** (Réglages) : mesures de l'appareil (écran, vitesse, temps réel) et rapport à copier
+- **Session expirée** : un panneau propose de se reconnecter au lieu d'erreurs en série
+- **Info-bulles** sur les boutons, au survol de la souris ou au clavier
+- **Icône du plugin** de chaque équipement (en-tête des tuiles équipement, menu ⋮, Alertes, Analyse)
+- **Tuile scénario** : lance ou arrête un scénario Jeedom, affiche son état et son dernier lancement
+- **Couleur des lumières** : le rond de couleur ouvre une liste de 8 couleurs, 3 blancs et « Autre couleur… »
+- **Envoi des commandes** : un petit anneau tourne sur la tuile pendant l'envoi ; en cas d'échec, la tuile tremble, un message explique l'erreur et l'état précédent revient
+- **Interrupteurs** (Réglages > Cartes > Marche / arrêt) : lumières en interrupteur à bascule à la place des boutons On / Off
+- **Thermostat** : pastille « Chauffe » quand le chauffage est en marche (commande facultative)
+- Un simple clic sur une tuile n'ouvre plus la fiche de l'équipement : elle s'ouvre par ⋮ > Détails ou par un appui long
+
 # 16/11/2026
 
 - Icône du plugin allégée, le menu Plugins de Jeedom s'affiche plus vite (rendu identique).
