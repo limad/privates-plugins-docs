@@ -7,6 +7,16 @@ pluginId: wyoming_bridge
 
 # Wyoming Bridge changelog
 
+## 2026-11-25
+
+- More natural spoken replies: formatting (bold, headings, lists, tables) and emojis added by the AI are removed before Piper reads them.
+- Sentence too close to the previous one: the satellite says "Un instant, réessayez dans quelques secondes." (one moment, try again in a few seconds) instead of the failure message.
+- **Health** window: shows whether AI Assistant tries Jeedom interactions before the LLM (option disabled by default, to tick in AI Assistant for instant replies).
+- Lighter daemon log: the regular check made by Jeedom no longer writes a warning, and a refused IP is reported only once per hour.
+- Reliability: idle connections closed after 10 minutes, at most 8 simultaneous connections per IP address.
+- Faster dependency check.
+- Internal token hidden in the configuration (eye button to show it).
+
 ## 2026-11-10
 
 - Core heartbeat: a running daemon is now seen as communicating (otherwise, with a heartbeat set, the core would have reported it silent).

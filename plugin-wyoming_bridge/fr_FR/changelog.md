@@ -7,6 +7,16 @@ pluginId: wyoming_bridge
 
 # Changelog Wyoming Bridge
 
+## 2026-11-25
+
+- Réponses dites plus naturellement : la mise en forme (gras, titres, listes, tableaux) et les emojis ajoutés par l'IA sont retirés avant la lecture par Piper.
+- Phrase trop rapprochée de la précédente : le satellite dit « Un instant, réessayez dans quelques secondes. » au lieu du message d'échec.
+- Fenêtre **Santé** : indique si AI Assistant essaie les interactions Jeedom avant le LLM (option désactivée par défaut, à cocher dans AI Assistant pour des réponses instantanées).
+- Log du démon allégé : la vérification régulière faite par Jeedom n'y écrit plus d'avertissement, et une IP refusée n'est signalée qu'une fois par heure.
+- Fiabilité : connexions inactives fermées après 10 minutes, 8 connexions simultanées au plus par adresse IP.
+- Vérification des dépendances plus rapide.
+- Token interne masqué dans la configuration (bouton œil pour l'afficher).
+
 ## 2026-11-10
 
 - Heartbeat du core : un démon actif est désormais vu comme communiquant (sinon, avec un heartbeat réglé, le core l'aurait déclaré muet).
