@@ -7,6 +7,11 @@ pluginId: voice_satellite
 
 # Voice Satellite changelog
 
+## 0.4.0 (2026-11-25)
+
+- **The satellite speaks while the AI is writing**: the first sentence is spoken as soon as it is complete, without waiting for the end of the reply. Measured on a virtual satellite: 3 s between the end of the question and the start of the reply, down from 5 s (five-sentence reply). Requires an up-to-date AI Assistant; otherwise the reply arrives in one piece, as before.
+- Voice split into sentences: the end of a sentence no longer waits for the next one.
+
 ## 0.3.0 (2026-11-25)
 
 - **Faster voice**: a long reply is spoken from its first sentence, the rest is synthesised while it plays. Short sentences already spoken are kept in memory.

@@ -7,6 +7,11 @@ pluginId: voice_satellite
 
 # Changelog Voice Satellite
 
+## 0.4.0 (2026-11-25)
+
+- **Le satellite parle pendant que l'IA écrit** : la première phrase est dite dès qu'elle est complète, sans attendre la fin de la réponse. Mesuré sur un satellite virtuel : 3 s entre la fin de la question et le début de la réponse, contre 5 s auparavant (réponse de cinq phrases). Nécessite AI Assistant à jour ; sinon la réponse arrive d'un bloc, comme avant.
+- Voix découpée en phrases : la fin d'une phrase n'attend plus la phrase suivante.
+
 ## 0.3.0 (2026-11-25)
 
 - **Voix plus rapide** : une réponse longue est dite dès sa première phrase, la suite est synthétisée pendant la lecture. Phrases courtes déjà dites gardées en mémoire.

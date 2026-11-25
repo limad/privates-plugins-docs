@@ -125,9 +125,11 @@ Le choix se limite aux mots d'appel que le satellite connaît. Les modèles offi
 
 **À l'usage** : LVA n'écoute qu'après son bip, environ 2 s après le mot d'appel. Attendez le bip avant de poser la question.
 
+**Mot « Stop » de LVA** : pendant une réponse ou la sonnerie d'un minuteur, LVA écoute aussi son mot « Stop », un modèle anglais. Mesuré sur des voix de synthèse françaises, il se déclenche souvent sur d'autres mots. Au réglage par défaut (0,5), il coupe la réponse sur 56 % des « Frida » et 24 % des phrases ordinaires, et ne reconnaît que 64 % des vrais « Stop ». Avec `"stop_word_sensitivity": 0.8` dans `/app/configuration/preferences.json` (à modifier LVA arrêté), ces arrêts intempestifs tombent à 25 % et 11 %, et 56 % des vrais « Stop » restent reconnus. Au-delà de 0,81, le mot « Stop » ne se déclenche plus.
+
 ## Voix
 
-Une réponse longue est dite dès sa première phrase : la suite est synthétisée pendant la lecture (satellites en FLAC, le format par défaut). Les phrases courtes déjà dites (réponses des minuteurs, message d'échec, annonces répétées) sont gardées en mémoire quelques heures et repartent sans nouvelle synthèse.
+Le satellite parle dès la première phrase de la réponse, pendant que l'IA écrit encore la suite : chaque phrase est synthétisée dès qu'elle est complète (satellites en FLAC, le format par défaut ; fournisseur OpenAI-compatible comme DeepSeek, Mistral, Groq ou OpenAI pour le client MCP d'AI Assistant, sinon la réponse arrive d'un bloc puis est dite phrase par phrase). Les phrases courtes déjà dites (réponses des minuteurs, message d'échec, annonces répétées) sont gardées en mémoire quelques heures et repartent sans nouvelle synthèse.
 
 ## Santé
 
