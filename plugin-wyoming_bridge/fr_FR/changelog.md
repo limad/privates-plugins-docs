@@ -16,6 +16,11 @@ pluginId: wyoming_bridge
 - Fiabilité : connexions inactives fermées après 10 minutes, 8 connexions simultanées au plus par adresse IP.
 - Vérification des dépendances plus rapide.
 - Token interne masqué dans la configuration (bouton œil pour l'afficher).
+- **Fil de conversation** avec Home Assistant : chaque satellite garde son propre historique, remis à zéro à chaque nouvelle conversation et conservé pour les questions de suite.
+- Quand la réponse se termine par une question, le satellite réécoute sans mot d'activation.
+- Langue de la demande transmise à l'IA ; option **Toutes les langues** pour utiliser le service dans un pipeline vocal d'une autre langue.
+- Option **Consigne vocale** : réponses courtes adaptées à la voix par défaut, modifiable.
+- Nécessite une version à jour d'AI Assistant pour le fil de conversation et la consigne vocale.
 
 ## 2026-11-10
 

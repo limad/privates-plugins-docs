@@ -16,7 +16,7 @@ Le plugin ne remplace rien dans le pipeline vocal existant : il s'y ajoute comme
 ## Prérequis
 
 - Jeedom 4.5 ou supérieur, Debian 11 ou supérieur.
-- Le plugin **AI Assistant**, actif, avec un **client MCP par défaut** configuré.
+- Le plugin **AI Assistant**, actif et à jour, avec un **client MCP par défaut** configuré.
 - Un pipeline vocal Wyoming (par exemple Home Assistant Assist, ou un orchestrateur Wyoming) capable d'utiliser un service « handle ».
 
 ## Installation
@@ -34,6 +34,8 @@ Le plugin ne remplace rien dans le pipeline vocal existant : il s'y ajoute comme
 | Bind | Adresse d'écoute ; `0.0.0.0` = toutes les interfaces | 0.0.0.0 |
 | Timeout (s) | Délai maximal laissé à AI Assistant pour répondre (5 à 120 s) | 20 |
 | Message d'échec | Phrase dite par Piper quand aucune réponse n'a pu être produite | « Désolé, je n'ai pas pu répondre. » |
+| Consigne vocale | Consigne donnée à l'IA pour chaque phrase (forme de la réponse orale) ; vide = aucune | réponse en une à trois phrases courtes, sans mise en forme |
+| Toutes les langues | Propose le service dans un pipeline vocal de n'importe quelle langue ; l'IA répond dans la langue de la demande | non |
 | IPs autorisées | IPs ou réseaux (CIDR) autorisés à se connecter, séparés par des virgules | — |
 | Token interne | Jeton qui protège l'échange entre le démon et Jeedom, masqué (l'œil l'affiche) ; le bouton rouge le régénère. Inutile de le copier | généré |
 
@@ -47,7 +49,7 @@ AI Assistant peut essayer les **interactions Jeedom** avant d'appeler le LLM : u
 
 ## Raccorder le pipeline vocal
 
-Déclarer, dans le logiciel qui orchestre le pipeline, un service Wyoming à l'adresse `IP_de_Jeedom:10500`, de type **handle** / gestion des intentions. Le service s'annonce sous le nom `jeedom`, avec la langue de Jeedom.
+Déclarer, dans le logiciel qui orchestre le pipeline, un service Wyoming à l'adresse `IP_de_Jeedom:10500`, de type **handle** / gestion des intentions. Le service s'annonce sous le nom `jeedom`, avec la langue de Jeedom, ou pour toutes les langues si l'option **Toutes les langues** est cochée (redémarrer le démon après l'avoir changée).
 
 ## Page du plugin
 
@@ -63,13 +65,16 @@ Déclarer, dans le logiciel qui orchestre le pipeline, un service Wyoming à l'a
 | Dernière réponse | Texte renvoyé (vide si non traitée) | non |
 | Dernière requête traitée | 1 = réponse obtenue, 0 = échec | oui |
 | Durée de la dernière requête | En millisecondes, côté Jeedom | oui |
-| Dernier satellite | Adresse IP du satellite, ou `local` | non |
+| Dernier satellite | Satellite Home Assistant (ex. `assist_satellite.salon`), sinon adresse IP, ou `local` | non |
 
 Les commandes sont mises à jour après l'envoi de la réponse : elles n'ajoutent aucun délai. La dernière phrase et la dernière réponse sont visibles par les utilisateurs de Jeedom ; ne pas historiser ces deux commandes si l'on ne veut pas conserver les conversations.
 
 ## Fonctionnement
 
-- Chaque satellite (identifié par son adresse IP) a sa propre limite de débit et son propre historique de conversation dans AI Assistant. Si un orchestrateur unique relaie tous les satellites, ils partagent sa limite et son historique.
+- Chaque satellite a sa propre limite de débit et son propre historique de conversation dans AI Assistant. Home Assistant indique quel satellite parle : chacun garde son propre historique même si Home Assistant les relaie tous. Sans cette information (autre orchestrateur), le satellite est identifié par son adresse IP.
+- **Fil de conversation** : à chaque nouvelle conversation Home Assistant, l'historique du satellite repart de zéro, et l'IA ne mélange pas la demande avec les précédentes. Dans une même conversation (« Et dehors ? » juste après « Quelle température au salon ? »), le fil est gardé.
+- Quand la réponse se termine par une question, le satellite réécoute aussitôt, sans mot d'activation.
+- La langue de la demande est transmise : si elle diffère de celle de Jeedom, l'IA répond dans cette langue.
 - AI Assistant accepte une requête toutes les 2 secondes par appelant : une phrase envoyée trop tôt reçoit « Un instant, réessayez dans quelques secondes. »
 - La réponse est nettoyée avant d'être renvoyée : mise en forme (gras, titres, listes, tableaux) et emojis retirés, pour que Piper la lise naturellement.
 - En cas de délai dépassé, d'erreur ou d'AI Assistant indisponible, le pipeline reçoit « non traité » avec le message d'échec.

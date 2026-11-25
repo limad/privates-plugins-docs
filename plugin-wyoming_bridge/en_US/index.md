@@ -16,7 +16,7 @@ The plugin replaces nothing in your existing voice pipeline: it is added as one 
 ## Requirements
 
 - Jeedom 4.5 or later, Debian 11 or later.
-- The **AI Assistant** plugin, enabled, with a **default MCP client** configured.
+- The **AI Assistant** plugin, enabled and up to date, with a **default MCP client** configured.
 - A Wyoming voice pipeline (for example Home Assistant Assist, or a Wyoming orchestrator) able to use a "handle" service.
 
 ## Installation
@@ -34,6 +34,8 @@ The plugin replaces nothing in your existing voice pipeline: it is added as one 
 | Bind | Listening address; `0.0.0.0` = all interfaces | 0.0.0.0 |
 | Timeout (s) | Maximum time given to AI Assistant to answer (5 to 120 s) | 20 |
 | Failure message | Sentence spoken by Piper when no answer could be produced | "Désolé, je n'ai pas pu répondre." |
+| Voice instructions | Instructions given to the AI for each sentence (shape of the spoken reply); empty = none | reply in one to three short sentences, without formatting |
+| All languages | Offers the service in a voice pipeline of any language; the AI replies in the language of the request | no |
 | Allowed IPs | IPs or networks (CIDR) allowed to connect, comma separated | — |
 | Internal token | Token protecting the exchange between the daemon and Jeedom, hidden (the eye shows it); the red button regenerates it. No need to copy it | generated |
 
@@ -47,7 +49,7 @@ AI Assistant can try **Jeedom interactions** before calling the LLM: a sentence 
 
 ## Connecting the voice pipeline
 
-In the software that orchestrates the pipeline, declare a Wyoming service at `Jeedom_IP:10500`, of type **handle** / intent handling. The service announces itself as `jeedom`, with the Jeedom language.
+In the software that orchestrates the pipeline, declare a Wyoming service at `Jeedom_IP:10500`, of type **handle** / intent handling. The service announces itself as `jeedom`, with the Jeedom language, or for all languages when **All languages** is ticked (restart the daemon after changing it).
 
 ## Plugin page
 
@@ -63,13 +65,16 @@ In the software that orchestrates the pipeline, declare a Wyoming service at `Je
 | Last reply | Text sent back (empty if not handled) | no |
 | Last request handled | 1 = answer obtained, 0 = failure | yes |
 | Last request duration | In milliseconds, Jeedom side | yes |
-| Last satellite | IP address of the satellite, or `local` | no |
+| Last satellite | Home Assistant satellite (e.g. `assist_satellite.living_room`), otherwise IP address, or `local` | no |
 
 Commands are updated after the reply has been sent: they add no delay. The last sentence and last reply are visible to Jeedom users; do not historize these two commands if you do not want to keep conversations.
 
 ## How it works
 
-- Each satellite (identified by its IP address) has its own rate limit and its own conversation history in AI Assistant. If a single orchestrator relays all satellites, they share its limit and history.
+- Each satellite has its own rate limit and its own conversation history in AI Assistant. Home Assistant tells which satellite is speaking: each one keeps its own history even when Home Assistant relays them all. Without that information (another orchestrator), the satellite is identified by its IP address.
+- **Conversation thread**: on each new Home Assistant conversation, the satellite history starts from scratch, so the AI does not mix the request with earlier ones. Within the same conversation ("And outside?" right after "What is the temperature in the living room?"), the thread is kept.
+- When the reply ends with a question, the satellite listens again right away, without a wake word.
+- The language of the request is passed on: if it differs from the Jeedom language, the AI replies in that language.
 - AI Assistant accepts one request every 2 seconds per caller: a sentence sent too early gets "Un instant, réessayez dans quelques secondes." (one moment, try again in a few seconds).
 - The reply is cleaned before being sent back: formatting (bold, headings, lists, tables) and emojis are removed so that Piper reads it naturally.
 - On timeout, error or unavailable AI Assistant, the pipeline receives "not handled" with the failure message.
