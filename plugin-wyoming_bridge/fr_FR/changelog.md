@@ -21,6 +21,7 @@ pluginId: wyoming_bridge
 - Langue de la demande transmise à l'IA ; option **Toutes les langues** pour utiliser le service dans un pipeline vocal d'une autre langue.
 - Option **Consigne vocale** : réponses courtes adaptées à la voix par défaut, modifiable.
 - Nécessite une version à jour d'AI Assistant pour le fil de conversation et la consigne vocale.
+- **Découverte automatique par Home Assistant** : le service s'annonce sur le réseau local et apparaît dans les appareils découverts (option activée par défaut ; relancer les dépendances).
 
 ## 2026-11-10
 

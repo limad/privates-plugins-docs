@@ -21,6 +21,7 @@ pluginId: wyoming_bridge
 - Language of the request passed to the AI; **All languages** option to use the service in a voice pipeline of another language.
 - **Voice instructions** option: short replies suited to voice by default, editable.
 - Requires an up-to-date AI Assistant for the conversation thread and voice instructions.
+- **Automatic discovery by Home Assistant**: the service announces itself on the local network and shows up among discovered devices (option enabled by default; reinstall the dependencies).
 
 ## 2026-11-10
 
