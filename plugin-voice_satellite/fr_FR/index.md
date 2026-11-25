@@ -108,7 +108,7 @@ Le choix se limite aux mots d'appel que le satellite connaît. Les modèles offi
      "wake_word": "Frida",
      "model": "frida.tflite",
      "trained_languages": ["fr"],
-     "openWakeWord": { "probability_cutoff": 0.7 }
+     "openWakeWord": { "probability_cutoff": 0.8 }
    }
    ```
 3. **Dossier** : montez le dossier dans le conteneur et indiquez-le à LVA. Les mots d'appel intégrés restent disponibles. Montez aussi `/app/configuration` : LVA y garde le mot choisi.
@@ -121,7 +121,7 @@ Le choix se limite aux mots d'appel que le satellite connaît. Les modèles offi
    ```
 4. **Choix** : redémarrez LVA. Le mot apparaît dans la commande **Choisir le mot d'appel** du satellite, choisissez-le. Il reste actif après un redémarrage de LVA.
 
-**Seuil** (`probability_cutoff`) : 0,7 est conseillé. C'est aussi la valeur par défaut de LVA. Plus haut, il y a moins de fausses détections, mais quelques mots prononcés de façon inhabituelle sont manqués. L'entité « Wake Word Sensitivity » de LVA, si elle est réglée, remplace cette valeur.
+**Seuil** (`probability_cutoff`) : 0,8 est conseillé (LVA prend 0,7 si le JSON n'en donne pas). Mesuré pour « Frida » : environ 88 % de détection et moins d'une fausse détection par heure. Plus haut, il y a moins de fausses détections, mais davantage de mots manqués. L'entité « Wake Word Sensitivity » de LVA, si elle est réglée, remplace cette valeur.
 
 **À l'usage** : LVA n'écoute qu'après son bip, environ 2 s après le mot d'appel. Attendez le bip avant de poser la question.
 

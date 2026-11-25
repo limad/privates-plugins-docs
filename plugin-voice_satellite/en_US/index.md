@@ -108,7 +108,7 @@ You can only choose among the wake words the satellite knows. The official ESPHo
      "wake_word": "Frida",
      "model": "frida.tflite",
      "trained_languages": ["fr"],
-     "openWakeWord": { "probability_cutoff": 0.7 }
+     "openWakeWord": { "probability_cutoff": 0.8 }
    }
    ```
 3. **Folder**: mount the folder in the container and point LVA to it. The built-in wake words stay available. Also mount `/app/configuration`: LVA keeps the chosen word there.
@@ -121,7 +121,7 @@ You can only choose among the wake words the satellite knows. The official ESPHo
    ```
 4. **Choice**: restart LVA. The word appears in the satellite's **Choose wake word** command; select it. It stays active after LVA restarts.
 
-**Threshold** (`probability_cutoff`): 0.7 is recommended. It is also LVA's default. Higher means fewer false detections, but a few unusually pronounced words are missed. LVA's "Wake Word Sensitivity" entity, when set, overrides this value.
+**Threshold** (`probability_cutoff`): 0.8 is recommended (LVA uses 0.7 when the JSON sets none). Measured for "Frida": about 88% detection and less than one false detection per hour. Higher means fewer false detections, but more missed words. LVA's "Wake Word Sensitivity" entity, when set, overrides this value.
 
 **In use**: LVA only listens after its beep, about 2 s after the wake word. Wait for the beep before asking.
 
