@@ -68,6 +68,21 @@ pluginId: limad44
 </div>
 
 <div class="plugin-card">
+	<a class="plugin-card__header" href="{{site.baseurl}}/plugin-voice_satellite/{{page.lang}}">
+	<img src="{{site.baseurl}}/plugin-voice_satellite/images/voice_satellite_icon.png" alt="voice_satellite">
+	<div>
+		<h2 class="plugin-card__name">Voice Satellite</h2>
+		<span class="plugin-card__id">voice_satellite</span>
+	</div>
+	</a>
+	<p class="plugin-card__desc">Satellites vocaux ESPHome (Voice PE, ESP32-S3-BOX, linux-voice-assistant…) pilotés par Jeedom sans Home Assistant : mot d'appel, transcription, réponse par AI Assistant, annonces, minuteurs, volume.</p>
+	<div class="plugin-card__links">
+	<a href="{{site.baseurl}}/plugin-voice_satellite/{{page.lang}}">Documentation</a>
+	<a href="{{site.baseurl}}/plugin-voice_satellite/{{page.lang}}/changelog">Changelog</a>
+	</div>
+</div>
+
+<div class="plugin-card">
 	<a class="plugin-card__header" href="{{site.baseurl}}/plugin-wyoming_bridge/{{page.lang}}">
 	<img src="{{site.baseurl}}/plugin-wyoming_bridge/images/wyoming_bridge_icon.png" alt="wyoming_bridge">
 	<div>
