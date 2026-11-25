@@ -7,6 +7,15 @@ pluginId: voice_satellite
 
 # Changelog Voice Satellite
 
+## 0.3.0 (2026-11-25)
+
+- **Voix plus rapide** : une réponse longue est dite dès sa première phrase, la suite est synthétisée pendant la lecture. Phrases courtes déjà dites gardées en mémoire.
+- **Pièce du satellite** (objet parent) donnée à AI Assistant : « allume la lumière » vise la pièce du satellite (AI Assistant à jour requis).
+- Commandes **Arrêter la lecture** et **Dernière erreur**.
+- Réglages d'écoute **par satellite** ; réglages d'écoute et de réponse appliqués **sans redémarrer** le démon.
+- **Minuteurs conservés** au redémarrage du démon ou de la box.
+- Sauvegarde d'un équipement plus rapide, détection de fin de parole plus rapide au mot d'appel, pose de la clé de chiffrement fiabilisée.
+
 ## 0.2.0 (2026-11-25)
 
 - **Rechercher** : découverte des satellites ESPHome du réseau (mDNS), ajout en un clic.

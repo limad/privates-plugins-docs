@@ -51,7 +51,13 @@ La clé est stockée chiffrée. En cas de problème, la connexion affiche la cau
 - **Port audio** et **adresse de la box** : adresse à laquelle les satellites téléchargent la voix.
 - **Port de contrôle** : port local par lequel Jeedom commande le démon.
 
-Redémarrez le démon après avoir modifié ces réglages.
+Les réglages d'écoute et de réponse sont pris en compte sans redémarrage. Les réglages réseau (ports, adresses) demandent de redémarrer le démon.
+
+Sur chaque satellite, **Fin de parole**, **Écoute maximale** et **Relancer l'écoute après une question** remplacent le réglage du plugin (vide = réglage du plugin). Une pièce bruyante demande souvent une fin de parole plus longue.
+
+## Pièce du satellite
+
+L'objet parent du satellite est donné à AI Assistant comme pièce où l'on parle : « allume la lumière » vise la lumière de cette pièce, sans la nommer.
 
 ## Commandes
 
@@ -61,11 +67,13 @@ Redémarrez le démon après avoir modifié ces réglages.
 | État | info texte | `idle`, `listening`, `thinking`, `speaking` |
 | Dernière phrase / Dernière réponse | info texte | dernier échange |
 | Durée de la dernière réponse | info numérique (ms) | de la fin de la phrase à l'envoi de la voix |
+| Dernière erreur | info texte | transcription, réponse, voix ou connexion en échec (déclenche un scénario à chaque erreur, même répétée) |
 | Volume / Muet | info | état du lecteur du satellite |
 | Mot d'appel | info texte | mot d'appel actif |
 | Minuteur en cours / Dernier minuteur terminé | info | suivi des minuteurs |
 | Annoncer | action message | fait dire un texte au satellite |
 | Annoncer et écouter | action message | dit le texte, puis écoute la réponse (sans mot d'appel) |
+| Arrêter la lecture | action | interrompt la réponse ou l'annonce en cours |
 | Régler le volume | action curseur (0-100) | volume du satellite |
 | Couper le son / Remettre le son | action | muet |
 | Choisir le mot d'appel | action liste | liste lue sur le satellite |
@@ -78,13 +86,48 @@ Exemples : « Mets un minuteur de 10 minutes », « Combien de temps reste-t-il 
 
 Ces phrases sont traitées par le plugin, sans appel au LLM. Le satellite affiche le décompte et sonne à la fin, s'il gère les minuteurs.
 
+Sur `linux-voice-assistant`, la sonnerie d'un minuteur s'arrête avec le mot d'appel, « Stop » ou le bouton. « Arrêter la lecture » ne coupe que le son en cours : LVA relance la sonnerie.
+
+Les minuteurs en cours sont conservés au redémarrage du démon ou de la box. Un minuteur échu pendant l'arrêt ne sonne pas, mais met à jour « Dernier minuteur terminé ».
+
 « Annule » et « reste » ne visent les minuteurs du satellite que si l'un d'eux est en cours. Sinon, la phrase part vers Jeedom (par exemple pour un équipement nommé « minuteur »).
 
 ## Mot d'appel
 
 Le choix se limite aux mots d'appel que le satellite connaît. Les modèles officiels ESPHome sont en anglais. Un mot en français demande un modèle entraîné :
 - sur un ESP32, il faut recompiler le firmware ;
-- avec `linux-voice-assistant`, il suffit d'ajouter un modèle openWakeWord dans son dossier de mots d'appel.
+- avec `linux-voice-assistant` (LVA, sur un Pi ou un PC), il suffit d'ajouter un modèle openWakeWord, sans toucher au plugin.
+
+### Mot d'appel en français avec linux-voice-assistant
+
+1. **Modèle** : un modèle openWakeWord au format **TFLite** (`.tflite`). LVA ne lit pas l'ONNX. Un modèle issu de l'entraînement openWakeWord est en ONNX : convertissez-le en gardant l'entrée `[1, 16, 96]` (`onnx2tf` la transpose en `[1, 96, 16]` : vérifiez la forme obtenue).
+2. **Description** : un fichier JSON à côté du modèle, par exemple `frida.json` :
+   ```json
+   {
+     "type": "openWakeWord",
+     "wake_word": "Frida",
+     "model": "frida.tflite",
+     "trained_languages": ["fr"],
+     "openWakeWord": { "probability_cutoff": 0.8 }
+   }
+   ```
+3. **Dossier** : montez le dossier dans le conteneur et indiquez-le à LVA. Les mots d'appel intégrés restent disponibles. Montez aussi `/app/configuration` : LVA y garde le mot choisi.
+   ```yaml
+   environment:
+     WAKE_WORD_DIR: /app/wakewords-custom
+   volumes:
+     - /chemin/vers/wakewords:/app/wakewords-custom:ro
+     - /chemin/vers/configuration:/app/configuration
+   ```
+4. **Choix** : redémarrez LVA. Le mot apparaît dans la commande **Choisir le mot d'appel** du satellite, choisissez-le. Il reste actif après un redémarrage de LVA.
+
+**Seuil** (`probability_cutoff`) : 0,8 est conseillé (LVA prend 0,7 si le JSON n'en donne pas). Mesuré pour « Frida » : environ 88 % de détection et moins d'une fausse détection par heure. Plus haut, il y a moins de fausses détections, mais davantage de mots manqués. L'entité « Wake Word Sensitivity » de LVA, si elle est réglée, remplace cette valeur.
+
+**À l'usage** : LVA n'écoute qu'après son bip, environ 2 s après le mot d'appel. Attendez le bip avant de poser la question.
+
+## Voix
+
+Une réponse longue est dite dès sa première phrase : la suite est synthétisée pendant la lecture (satellites en FLAC, le format par défaut). Les phrases courtes déjà dites (réponses des minuteurs, message d'échec, annonces répétées) sont gardées en mémoire quelques heures et repartent sans nouvelle synthèse.
 
 ## Santé
 
