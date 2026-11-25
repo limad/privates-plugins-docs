@@ -125,9 +125,11 @@ You can only choose among the wake words the satellite knows. The official ESPHo
 
 **In use**: LVA only listens after its beep, about 2 s after the wake word. Wait for the beep before asking.
 
+**LVA "Stop" word**: during a reply or a ringing timer, LVA also listens for its "Stop" word, an English model. Measured on French synthetic voices, it often fires on other words. At the default setting (0.5), it cuts the reply on 56% of "Frida" and 24% of ordinary sentences, and recognises only 64% of real "Stop". With `"stop_word_sensitivity": 0.8` in `/app/configuration/preferences.json` (edit it while LVA is stopped), these unwanted stops drop to 25% and 11%, and 56% of real "Stop" are still recognised. Above 0.81, the "Stop" word never fires.
+
 ## Voice
 
-A long reply is spoken from its first sentence: the rest is synthesised while it plays (FLAC satellites, the default format). Short sentences already spoken (timer replies, failure message, repeated announcements) are kept in memory for a few hours and replayed without a new synthesis.
+The satellite starts speaking at the first sentence of the reply, while the AI is still writing the rest: each sentence is synthesised as soon as it is complete (FLAC satellites, the default format; OpenAI-compatible provider such as DeepSeek, Mistral, Groq or OpenAI for the AI Assistant MCP client, otherwise the reply arrives in one piece and is then spoken sentence by sentence). Short sentences already spoken (timer replies, failure message, repeated announcements) are kept in memory for a few hours and replayed without a new synthesis.
 
 ## Health
 
