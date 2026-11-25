@@ -51,7 +51,13 @@ The key is stored encrypted. When something goes wrong, the connection shows the
 - **Audio port** and **box address**: where the satellites download the voice.
 - **Control port**: local port Jeedom uses to control the daemon.
 
-Restart the daemon after changing these settings.
+Listening and reply settings apply without a restart. Network settings (ports, addresses) require restarting the daemon.
+
+On each satellite, **End of speech**, **Maximum listening** and **Listen again after a question** override the plugin setting (empty = plugin setting). A noisy room often needs a longer end of speech.
+
+## Satellite room
+
+The satellite's parent object is given to AI Assistant as the room the user speaks from: "turn on the light" targets the light of that room, without naming it.
 
 ## Commands
 
@@ -61,11 +67,13 @@ Restart the daemon after changing these settings.
 | State | text info | `idle`, `listening`, `thinking`, `speaking` |
 | Last sentence / Last reply | text info | last exchange |
 | Last reply duration | numeric info (ms) | from the end of the sentence to the voice being sent |
+| Last error | text info | failed transcription, reply, voice or connection (triggers a scenario on every error, even a repeated one) |
 | Volume / Muted | info | satellite player state |
 | Wake word | text info | active wake word |
 | Timer running / Last finished timer | info | timer tracking |
 | Announce | message action | makes the satellite say a text |
 | Announce and listen | message action | says the text, then listens to the answer (no wake word) |
+| Stop playback | action | interrupts the current reply or announcement |
 | Set volume | slider action (0-100) | satellite volume |
 | Mute / Unmute | action | mute |
 | Choose wake word | list action | list read from the satellite |
@@ -78,13 +86,48 @@ Timer sentences are recognised in French: « Mets un minuteur de 10 minutes », 
 
 These sentences are handled by the plugin, without calling the LLM. The satellite shows the countdown and rings at the end, if it supports timers.
 
+On `linux-voice-assistant`, a ringing timer stops with the wake word, "Stop" or the button. "Stop playback" only cuts the current sound: LVA starts ringing again.
+
+Running timers are kept when the daemon or the box restarts. A timer that ended while stopped does not ring, but updates "Last finished timer".
+
 "Cancel" and "time left" only target the satellite timers while one of them is running. Otherwise, the sentence goes to Jeedom (for example for an equipment named "minuteur").
 
 ## Wake word
 
 You can only choose among the wake words the satellite knows. The official ESPHome models are in English. A French wake word needs a trained model:
 - on an ESP32, the firmware must be recompiled;
-- with `linux-voice-assistant`, adding an openWakeWord model to its wake word folder is enough.
+- with `linux-voice-assistant` (LVA, on a Pi or a PC), adding an openWakeWord model is enough, without changing the plugin.
+
+### French wake word with linux-voice-assistant
+
+1. **Model**: an openWakeWord model in **TFLite** format (`.tflite`). LVA does not read ONNX. A model produced by openWakeWord training is ONNX: convert it while keeping the `[1, 16, 96]` input (`onnx2tf` transposes it to `[1, 96, 16]`: check the resulting shape).
+2. **Description**: a JSON file next to the model, for example `frida.json`:
+   ```json
+   {
+     "type": "openWakeWord",
+     "wake_word": "Frida",
+     "model": "frida.tflite",
+     "trained_languages": ["fr"],
+     "openWakeWord": { "probability_cutoff": 0.7 }
+   }
+   ```
+3. **Folder**: mount the folder in the container and point LVA to it. The built-in wake words stay available. Also mount `/app/configuration`: LVA keeps the chosen word there.
+   ```yaml
+   environment:
+     WAKE_WORD_DIR: /app/wakewords-custom
+   volumes:
+     - /path/to/wakewords:/app/wakewords-custom:ro
+     - /path/to/configuration:/app/configuration
+   ```
+4. **Choice**: restart LVA. The word appears in the satellite's **Choose wake word** command; select it. It stays active after LVA restarts.
+
+**Threshold** (`probability_cutoff`): 0.7 is recommended. It is also LVA's default. Higher means fewer false detections, but a few unusually pronounced words are missed. LVA's "Wake Word Sensitivity" entity, when set, overrides this value.
+
+**In use**: LVA only listens after its beep, about 2 s after the wake word. Wait for the beep before asking.
+
+## Voice
+
+A long reply is spoken from its first sentence: the rest is synthesised while it plays (FLAC satellites, the default format). Short sentences already spoken (timer replies, failure message, repeated announcements) are kept in memory for a few hours and replayed without a new synthesis.
 
 ## Health
 
