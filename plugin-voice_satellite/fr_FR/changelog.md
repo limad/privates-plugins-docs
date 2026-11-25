@@ -11,6 +11,7 @@ pluginId: voice_satellite
 
 - **Le satellite parle pendant que l'IA écrit** : la première phrase est dite dès qu'elle est complète, sans attendre la fin de la réponse. Mesuré sur un satellite virtuel : 3 s entre la fin de la question et le début de la réponse, contre 5 s auparavant (réponse de cinq phrases). Nécessite AI Assistant à jour ; sinon la réponse arrive d'un bloc, comme avant.
 - Voix découpée en phrases : la fin d'une phrase n'attend plus la phrase suivante.
+- Réponse au fil de l'eau aussi avec Claude et Gemini comme fournisseur du client MCP d'AI Assistant, en plus des fournisseurs OpenAI-compatibles.
 
 ## 0.3.0 (2026-11-25)
 
