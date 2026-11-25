@@ -78,7 +78,7 @@ Les commandes sont mises à jour après l'envoi de la réponse : elles n'ajouten
 - **Fil de conversation** : à chaque nouvelle conversation Home Assistant, l'historique du satellite repart de zéro, et l'IA ne mélange pas la demande avec les précédentes. Dans une même conversation (« Et dehors ? » juste après « Quelle température au salon ? »), le fil est gardé.
 - Quand la réponse se termine par une question, le satellite réécoute aussitôt, sans mot d'activation.
 - La langue de la demande est transmise : si elle diffère de celle de Jeedom, l'IA répond dans cette langue.
-- AI Assistant accepte une requête toutes les 2 secondes par appelant : une phrase envoyée trop tôt reçoit « Un instant, réessayez dans quelques secondes. »
+- AI Assistant accepte une requête au LLM toutes les 2 secondes par appelant : une phrase envoyée trop tôt reçoit « Un instant, réessayez dans quelques secondes. » Les phrases reconnues par une interaction Jeedom ne sont jamais limitées.
 - La réponse est nettoyée avant d'être renvoyée : mise en forme (gras, titres, listes, tableaux) et emojis retirés, pour que Piper la lise naturellement.
 - En cas de délai dépassé, d'erreur ou d'AI Assistant indisponible, le pipeline reçoit « non traité » avec le message d'échec.
 - Les phrases et les réponses ne sont écrites dans les logs qu'en niveau Debug.

@@ -78,7 +78,7 @@ Commands are updated after the reply has been sent: they add no delay. The last 
 - **Conversation thread**: on each new Home Assistant conversation, the satellite history starts from scratch, so the AI does not mix the request with earlier ones. Within the same conversation ("And outside?" right after "What is the temperature in the living room?"), the thread is kept.
 - When the reply ends with a question, the satellite listens again right away, without a wake word.
 - The language of the request is passed on: if it differs from the Jeedom language, the AI replies in that language.
-- AI Assistant accepts one request every 2 seconds per caller: a sentence sent too early gets "Un instant, réessayez dans quelques secondes." (one moment, try again in a few seconds).
+- AI Assistant accepts one LLM request every 2 seconds per caller (sentences recognized by a Jeedom interaction are never limited): a sentence sent too early gets "Un instant, réessayez dans quelques secondes." (one moment, try again in a few seconds).
 - The reply is cleaned before being sent back: formatting (bold, headings, lists, tables) and emojis are removed so that Piper reads it naturally.
 - On timeout, error or unavailable AI Assistant, the pipeline receives "not handled" with the failure message.
 - Sentences and replies are written to the logs only at Debug level.
