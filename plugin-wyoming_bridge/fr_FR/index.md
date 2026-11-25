@@ -22,7 +22,7 @@ Le plugin ne remplace rien dans le pipeline vocal existant : il s'y ajoute comme
 ## Installation
 
 1. Installer et activer le plugin.
-2. Lancer l'installation des **dépendances** (environnement Python avec le paquet `wyoming`).
+2. Lancer l'installation des **dépendances** (environnement Python avec les paquets `wyoming` et `zeroconf`).
 3. Renseigner la configuration (ci-dessous), en particulier **IPs autorisées**.
 4. Le démon démarre automatiquement (gestion automatique du démon dans la page de configuration).
 
@@ -35,6 +35,7 @@ Le plugin ne remplace rien dans le pipeline vocal existant : il s'y ajoute comme
 | Timeout (s) | Délai maximal laissé à AI Assistant pour répondre (5 à 120 s) | 20 |
 | Message d'échec | Phrase dite par Piper quand aucune réponse n'a pu être produite | « Désolé, je n'ai pas pu répondre. » |
 | Consigne vocale | Consigne donnée à l'IA pour chaque phrase (forme de la réponse orale) ; vide = aucune | réponse en une à trois phrases courtes, sans mise en forme |
+| Découverte Home Assistant | Annonce le service sur le réseau local pour que Home Assistant le détecte tout seul | oui |
 | Toutes les langues | Propose le service dans un pipeline vocal de n'importe quelle langue ; l'IA répond dans la langue de la demande | non |
 | IPs autorisées | IPs ou réseaux (CIDR) autorisés à se connecter, séparés par des virgules | — |
 | Token interne | Jeton qui protège l'échange entre le démon et Jeedom, masqué (l'œil l'affiche) ; le bouton rouge le régénère. Inutile de le copier | généré |
@@ -49,13 +50,15 @@ AI Assistant peut essayer les **interactions Jeedom** avant d'appeler le LLM : u
 
 ## Raccorder le pipeline vocal
 
-Déclarer, dans le logiciel qui orchestre le pipeline, un service Wyoming à l'adresse `IP_de_Jeedom:10500`, de type **handle** / gestion des intentions. Le service s'annonce sous le nom `jeedom`, avec la langue de Jeedom, ou pour toutes les langues si l'option **Toutes les langues** est cochée (redémarrer le démon après l'avoir changée).
+**Home Assistant** détecte le service tout seul (option **Découverte Home Assistant**) : il apparaît dans **Paramètres > Appareils et services** comme appareil découvert, à valider. L'adresse de Home Assistant doit figurer dans **IPs autorisées**, et l'adresse d'écoute doit être `0.0.0.0` ou l'IP de la box. Une entrée Wyoming déjà ajoutée à la main est reconnue, pas dupliquée.
+
+Sinon, ou avec un autre orchestrateur, déclarer un service Wyoming à l'adresse `IP_de_Jeedom:10500`, de type **handle** / gestion des intentions. Le service s'annonce sous le nom `jeedom`, avec la langue de Jeedom, ou pour toutes les langues si l'option **Toutes les langues** est cochée (redémarrer le démon après l'avoir changée).
 
 ## Page du plugin
 
 - **Configuration** : ouvre la configuration du plugin.
 - **Tester** : envoie une phrase au démon par le protocole Wyoming, exactement comme un satellite. La fenêtre affiche l'état du démon, la réponse, si elle a été traitée, la durée et le profil AI Assistant utilisé. Les actions demandées sont réellement exécutées et chaque test peut consommer un appel au LLM.
-- **Santé** : dépendances, démon, adresse d'écoute, IPs autorisées, délai, versions (Python, paquet `wyoming` installé et dernière version disponible, librairies d'installation), AI Assistant, client MCP par défaut et option des interactions Jeedom.
+- **Santé** : dépendances, démon, adresse d'écoute, IPs autorisées, délai, versions (Python, paquet `wyoming` installé et dernière version disponible, librairies d'installation), découverte Home Assistant, AI Assistant, client MCP par défaut et option des interactions Jeedom.
 - **Équipement Wyoming Bridge** : créé automatiquement, avec ces commandes info, utilisables dans les scénarios :
 
 | Commande | Contenu | Historisée par défaut |

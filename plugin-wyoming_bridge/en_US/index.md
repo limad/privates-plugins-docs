@@ -22,7 +22,7 @@ The plugin replaces nothing in your existing voice pipeline: it is added as one 
 ## Installation
 
 1. Install and enable the plugin.
-2. Install the **dependencies** (Python environment with the `wyoming` package).
+2. Install the **dependencies** (Python environment with the `wyoming` and `zeroconf` packages).
 3. Fill in the configuration (below), especially **Allowed IPs**.
 4. The daemon starts automatically (automatic daemon management on the configuration page).
 
@@ -35,6 +35,7 @@ The plugin replaces nothing in your existing voice pipeline: it is added as one 
 | Timeout (s) | Maximum time given to AI Assistant to answer (5 to 120 s) | 20 |
 | Failure message | Sentence spoken by Piper when no answer could be produced | "Désolé, je n'ai pas pu répondre." |
 | Voice instructions | Instructions given to the AI for each sentence (shape of the spoken reply); empty = none | reply in one to three short sentences, without formatting |
+| Home Assistant discovery | Announces the service on the local network so that Home Assistant detects it by itself | yes |
 | All languages | Offers the service in a voice pipeline of any language; the AI replies in the language of the request | no |
 | Allowed IPs | IPs or networks (CIDR) allowed to connect, comma separated | — |
 | Internal token | Token protecting the exchange between the daemon and Jeedom, hidden (the eye shows it); the red button regenerates it. No need to copy it | generated |
@@ -49,13 +50,15 @@ AI Assistant can try **Jeedom interactions** before calling the LLM: a sentence 
 
 ## Connecting the voice pipeline
 
-In the software that orchestrates the pipeline, declare a Wyoming service at `Jeedom_IP:10500`, of type **handle** / intent handling. The service announces itself as `jeedom`, with the Jeedom language, or for all languages when **All languages** is ticked (restart the daemon after changing it).
+**Home Assistant** detects the service by itself (**Home Assistant discovery** option): it shows up in **Settings > Devices & services** as a discovered device to confirm. The Home Assistant address must be in **Allowed IPs**, and the listening address must be `0.0.0.0` or the box IP. A Wyoming entry already added by hand is recognized, not duplicated.
+
+Otherwise, or with another orchestrator, declare a Wyoming service at `Jeedom_IP:10500`, of type **handle** / intent handling. The service announces itself as `jeedom`, with the Jeedom language, or for all languages when **All languages** is ticked (restart the daemon after changing it).
 
 ## Plugin page
 
 - **Configuration**: opens the plugin configuration.
 - **Test**: sends a sentence to the daemon over the Wyoming protocol, exactly like a satellite. The window shows the daemon state, the reply, whether it was handled, the duration and the AI Assistant profile used. Requested actions are really executed and each test may cost one LLM call.
-- **Health**: dependencies, daemon, listening address, allowed IPs, timeout, versions (Python, installed `wyoming` package and latest available, installation libraries), AI Assistant, default MCP client and the Jeedom interactions option.
+- **Health**: dependencies, daemon, listening address, allowed IPs, timeout, versions (Python, installed `wyoming` package and latest available, installation libraries), Home Assistant discovery, AI Assistant, default MCP client and the Jeedom interactions option.
 - **Wyoming Bridge equipment**: created automatically, with these info commands, usable in scenarios:
 
 | Command | Content | Historized by default |
