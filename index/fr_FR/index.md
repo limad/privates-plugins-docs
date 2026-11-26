@@ -68,6 +68,21 @@ pluginId: limad44
 </div>
 
 <div class="plugin-card">
+	<a class="plugin-card__header" href="{{site.baseurl}}/plugin-voice_engine/{{page.lang}}">
+	<img src="{{site.baseurl}}/plugin-voice_engine/images/voice_engine_icon.png" alt="voice_engine">
+	<div>
+		<h2 class="plugin-card__name">Voice Engine</h2>
+		<span class="plugin-card__id">voice_engine</span>
+	</div>
+	</a>
+	<p class="plugin-card__desc">Moteur de voix et d'écoute de la box : un profil par voix (9router, ai_proxy, OpenAI, ElevenLabs, Mistral Voxtral, Gemini, Cartesia, Google Translate), lecture sur la box ou un autre appareil, moteur TTS de Jeedom.</p>
+	<div class="plugin-card__links">
+	<a href="{{site.baseurl}}/plugin-voice_engine/{{page.lang}}">Documentation</a>
+	<a href="{{site.baseurl}}/plugin-voice_engine/{{page.lang}}/changelog">Changelog</a>
+	</div>
+</div>
+
+<div class="plugin-card">
 	<a class="plugin-card__header" href="{{site.baseurl}}/plugin-voice_satellite/{{page.lang}}">
 	<img src="{{site.baseurl}}/plugin-voice_satellite/images/voice_satellite_icon.png" alt="voice_satellite">
 	<div>
