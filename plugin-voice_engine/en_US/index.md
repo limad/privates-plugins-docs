@@ -16,7 +16,7 @@ evening, a fast voice for alerts, a Voxtral listening profile…) and use them i
 
 | Provider | Voice | Listening | Key | Notes |
 |---|---|---|---|---|
-| **OpenAI-compatible** | yes | yes | depends on the server | 9router (**free** edge-tts and google-tts voices), ai_proxy (Voxtral), OpenAI (`gpt-4o-mini-tts`, tone instructions), Groq (Whisper listening, free tier), OpenRouter (Fish Audio, Kokoro…; listening requires at least $0.50 of credit), local server (Kokoro-FastAPI, Speaches, Piper). |
+| **OpenAI-compatible** | yes | yes | depends on the server | 9router (**free** edge-tts and google-tts voices), ai_proxy (Mistral Voxtral voice and listening with ai_proxy's Mistral account), OpenAI (`gpt-4o-mini-tts`, tone instructions), Groq (Whisper listening, free tier), OpenRouter (Fish Audio, Kokoro…; listening requires at least $0.50 of credit), local server (Kokoro-FastAPI, Speaches, Piper). |
 | **ElevenLabs** | yes | yes (Scribe) | yes | Very natural voices. "Load voices" button. The key needs the "speech_to_text" permission for listening. |
 | **Mistral (Voxtral)** | yes | yes | yes | Voxtral TTS voice (hosted in Europe), Voxtral listening. Audio requires a paid Mistral subscription (otherwise "HTTP 402"). |
 | **Gemini TTS** | yes | — | yes | 30 preset voices, free style ("warm", "whispered"…). |

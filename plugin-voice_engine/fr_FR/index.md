@@ -16,7 +16,7 @@ Chaque équipement est un **profil** : un fournisseur, un modèle et une voix. V
 
 | Fournisseur | Voix | Écoute | Clé | Remarques |
 |---|---|---|---|---|
-| **Compatible OpenAI** | oui | oui | selon le serveur | 9router (voix edge-tts et google-tts **gratuites**), ai_proxy (Voxtral), OpenAI (`gpt-4o-mini-tts`, consignes de ton), Groq (écoute Whisper, offre gratuite), OpenRouter (Fish Audio, Kokoro… ; l'écoute demande au moins 0,50 $ de crédit), serveur local (Kokoro-FastAPI, Speaches, Piper). |
+| **Compatible OpenAI** | oui | oui | selon le serveur | 9router (voix edge-tts et google-tts **gratuites**), ai_proxy (voix et écoute Mistral Voxtral avec le compte Mistral d'ai_proxy), OpenAI (`gpt-4o-mini-tts`, consignes de ton), Groq (écoute Whisper, offre gratuite), OpenRouter (Fish Audio, Kokoro… ; l'écoute demande au moins 0,50 $ de crédit), serveur local (Kokoro-FastAPI, Speaches, Piper). |
 | **ElevenLabs** | oui | oui (Scribe) | oui | Voix très naturelles. Bouton « Charger les voix ». La clé doit avoir la permission « speech_to_text » pour l'écoute. |
 | **Mistral (Voxtral)** | oui | oui | oui | Voix Voxtral TTS (hébergée en Europe), écoute Voxtral. L'audio demande un abonnement Mistral payant (sinon « HTTP 402 »). |
 | **Gemini TTS** | oui | — | oui | 30 voix prédéfinies, style libre (« chaleureux », « chuchoté »…). |

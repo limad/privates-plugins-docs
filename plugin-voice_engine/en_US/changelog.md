@@ -7,6 +7,16 @@ pluginId: voice_engine
 
 # Voice Engine changelog
 
+## Version in development
+
+### 27/11/2026
+
+- **New features and fixes**: "Import from AI Assistant" button in the configuration, which copies the provider keys
+  (keys already entered are kept); the ai_proxy preset now finds the ai_proxy address and key on its own, and can now speak as well as listen
+  (Mistral voices, with an up-to-date ai_proxy).
+- **Fix**: the 9router preset now takes the key from the 9Router plugin on its own; without it, recent 9router
+  versions refused to speak.
+
 ## 0.1.0 (2026-11-26)
 
 - **First version**: one equipment per voice or listening profile, with the provider of your choice: 9router and
