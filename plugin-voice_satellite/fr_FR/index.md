@@ -24,7 +24,8 @@ Tout appareil qui expose un assistant vocal par l'API native ESPHome :
 
 ## Prérequis
 
-- Le plugin **AI Assistant**, avec un client MCP par défaut et un **serveur vocal** configuré (écoute et voix).
+- Le plugin **AI Assistant**, avec un client MCP par défaut (il produit la réponse).
+- Pour l'écoute et la voix : le plugin **Voice Engine** (un profil de voix et un profil d'écoute), ou à défaut le **serveur vocal** d'AI Assistant.
 - Les dépendances du plugin : Python ≥ 3.11 dans un environnement dédié, `aioesphomeapi`, `pysilero-vad` et `ffmpeg`. Sur Debian 11, Python 3.11 est compilé : l'installation peut alors durer longtemps.
 
 ## Ajouter un satellite
@@ -48,12 +49,13 @@ La clé est stockée chiffrée. En cas de problème, la connexion affiche la cau
 - **Délai de réponse** : temps laissé à AI Assistant.
 - **Relancer l'écoute après une question** : quand la réponse se termine par une question, le satellite écoute à nouveau sans mot d'appel.
 - **Message d'échec** : phrase dite quand aucune réponse n'a pu être produite.
+- **Moteur vocal**, **Profil de voix**, **Profil d'écoute** : qui transcrit et qui parle. En automatique, Voice Engine est utilisé dès qu'un profil est choisi (ici, sur un satellite, ou comme profil par défaut de Voice Engine) ; sinon, les réglages vocaux d'AI Assistant, comme avant.
 - **Port audio** et **adresse de la box** : adresse à laquelle les satellites téléchargent la voix.
 - **Port de contrôle** : port local par lequel Jeedom commande le démon.
 
 Les réglages d'écoute et de réponse sont pris en compte sans redémarrage. Les réglages réseau (ports, adresses) demandent de redémarrer le démon.
 
-Sur chaque satellite, **Fin de parole**, **Écoute maximale** et **Relancer l'écoute après une question** remplacent le réglage du plugin (vide = réglage du plugin). Une pièce bruyante demande souvent une fin de parole plus longue.
+Sur chaque satellite, **Fin de parole**, **Écoute maximale**, **Relancer l'écoute après une question**, **Profil de voix** et **Profil d'écoute** remplacent le réglage du plugin (vide = réglage du plugin) : une voix différente par pièce, par exemple. Une pièce bruyante demande souvent une fin de parole plus longue.
 
 ## Pièce du satellite
 
@@ -129,7 +131,7 @@ Le choix se limite aux mots d'appel que le satellite connaît. Les modèles offi
 
 ## Voix
 
-Le satellite parle dès la première phrase de la réponse, pendant que l'IA écrit encore la suite : chaque phrase est synthétisée dès qu'elle est complète (satellites en FLAC, le format par défaut ; fournisseur OpenAI-compatible comme DeepSeek, Mistral, Groq ou OpenAI pour le client MCP d'AI Assistant, sinon la réponse arrive d'un bloc puis est dite phrase par phrase). Les phrases courtes déjà dites (réponses des minuteurs, message d'échec, annonces répétées) sont gardées en mémoire quelques heures et repartent sans nouvelle synthèse.
+Le satellite parle dès la première phrase de la réponse, pendant que l'IA écrit encore la suite : chaque phrase est synthétisée dès qu'elle est complète (satellites en FLAC, le format par défaut ; client MCP d'AI Assistant sur Claude, Gemini ou un fournisseur OpenAI-compatible comme DeepSeek, Mistral, Groq ou OpenAI ; sinon la réponse arrive d'un bloc puis est dite phrase par phrase). Les phrases courtes déjà dites (réponses des minuteurs, message d'échec, annonces répétées) sont gardées en mémoire quelques heures et repartent sans nouvelle synthèse.
 
 ## Santé
 

@@ -9,6 +9,14 @@ pluginId: voice_engine
 
 ## Version en cours de développement
 
+### 28/11/2026
+
+- **Nouveautés** : nouveau fournisseur **Wyoming** (Piper, Whisper… sur votre réseau, sans cloud) ; voix **Gemini**
+  bien plus rapide (premier son en moins d'une seconde, son entier en 1,5 s au lieu de 6 s) ; son au fil de l'eau
+  aussi pour Mistral ; case **Reformuler avec l'IA** (texte réécrit pour l'oral par ai_proxy) ; bouton **Cloner** pour
+  créer une voix à partir d'un enregistrement (ElevenLabs, Cartesia, Mistral).
+- **Amélioration** : les tableaux et les puces sont mieux lus à voix haute.
+
 ### 27/11/2026
 
 - **Nouveautés** : « Charger les voix » fonctionne aussi pour 9router (voix Edge), ai_proxy (voix Marie) et OpenAI ;

@@ -17,11 +17,12 @@ Chaque équipement est un **profil** : un fournisseur, un modèle et une voix. V
 | Fournisseur | Voix | Écoute | Clé | Remarques |
 |---|---|---|---|---|
 | **Compatible OpenAI** | oui | oui | selon le serveur | 9router (voix edge-tts et google-tts **gratuites**), ai_proxy (voix et écoute Mistral Voxtral avec le compte Mistral d'ai_proxy), OpenAI (`gpt-4o-mini-tts`, consignes de ton, arrêté par OpenAI le 6 janvier 2027 ; écoute `gpt-transcribe`), Groq (écoute Whisper, offre gratuite), OpenRouter (Fish Audio, Kokoro… ; l'écoute demande au moins 0,50 $ de crédit), serveur local (Kokoro-FastAPI, Speaches, Piper). « Charger les voix » liste les voix Edge de 9router, les voix Marie d'ai_proxy, celles d'OpenAI ou du serveur local. |
-| **ElevenLabs** | oui | oui (Scribe) | oui | Voix très naturelles. Bouton « Charger les voix ». La clé doit avoir la permission « speech_to_text » pour l'écoute. |
-| **Mistral (Voxtral)** | oui | oui | oui | Voix Voxtral TTS (hébergée en Europe), écoute Voxtral. L'audio demande un abonnement Mistral payant (sinon « HTTP 402 »). |
-| **Gemini** | oui | oui | oui | 30 voix prédéfinies, style libre (« chaleureux », « chuchoté »…). Écoute par les modèles Gemini (`gemini-3.5-flash-lite` par défaut). |
-| **Cartesia (Sonic)** | oui | — | oui | La latence la plus basse. Voix françaises (dont accents canadien, belge, africain). |
+| **ElevenLabs** | oui | oui (Scribe) | oui | Voix très naturelles. Bouton « Charger les voix ». La clé doit avoir la permission « speech_to_text » pour l'écoute. Bouton « Cloner » (offre payante d'ElevenLabs). |
+| **Mistral (Voxtral)** | oui | oui | oui | Voix Voxtral TTS (hébergée en Europe), écoute Voxtral. L'audio demande un abonnement Mistral payant (sinon « HTTP 402 »). Son au fil de l'eau, bouton « Cloner ». |
+| **Gemini** | oui | oui | oui | 30 voix prédéfinies, style libre (« chaleureux », « chuchoté »…). Écoute par les modèles Gemini (`gemini-3.5-flash-lite` par défaut). Sans style, la voix arrive au fil de l'eau (premier son en moins d'une seconde). |
+| **Cartesia (Sonic)** | oui | — | oui | La latence la plus basse. Voix françaises (dont accents canadien, belge, africain). Bouton « Cloner ». |
 | **Google Translate** | oui | — | non | Gratuit, sans compte, qualité moyenne. Pratique en secours. |
+| **Wyoming** | oui | oui | non | Serveur vocal de votre réseau, celui de Home Assistant : Piper pour la voix (port 10200), Whisper pour l'écoute (port 10300). Rien ne sort de la maison. « Charger les voix » liste les voix installées sur le serveur. |
 
 Les clés se saisissent **une fois** dans la configuration du plugin (une par fournisseur). Un profil peut avoir sa
 propre clé (champ « Clé API » de l'équipement). Les clés ne quittent pas la box.
@@ -66,6 +67,21 @@ Les commandes de voix n'existent que si « Ce profil parle » est coché, celles
 
 Dans un scénario, le champ **Titre** de « Dire » ou « Lire un son » peut choisir une autre sortie que celle du profil :
 `none`, `local`, `cmd` ou `ssh`.
+
+## Reformulation par l'IA
+
+Case **Reformuler avec l'IA** d'un profil de voix : avant d'être dit, le texte est réécrit pour l'oral par un modèle
+d'ai_proxy (« 21,5°C » devient « vingt et un virgule cinq degrés », phrases courtes, sans mise en forme). Une
+**consigne** facultative change le ton (« chaleureux, tutoiement », « très court »). Le modèle se choisit dans la
+configuration du plugin (`mistral-small-latest` par défaut). Un même texte n'est réécrit qu'une fois (gardé 30 jours) ;
+si ai_proxy ne répond pas, le texte est dit tel quel.
+
+## Voix clonées
+
+Bouton **Cloner** à côté du champ Voix (ElevenLabs, Cartesia, Mistral) : envoyez un enregistrement propre d'une à
+quelques minutes, une seule personne, sans musique. La voix est créée sur le compte du fournisseur et son identifiant
+est mis dans le champ Voix : enregistrez le profil pour l'utiliser. Clonez seulement une voix dont la personne a
+donné son accord. Le clonage peut demander une offre payante chez le fournisseur.
 
 ## Liens vers les sons
 

@@ -7,10 +7,17 @@ pluginId: voice_satellite
 
 # Voice Satellite changelog
 
+## Version in development
+
+- **Speech and listening through Voice Engine**: choose a Voice Engine speech profile and listening profile, for all satellites or for each one (one voice per room). With no profile chosen, nothing changes: AI Assistant's voice settings are still used.
+
 ## 0.4.0 (2026-11-25)
 
 - **The satellite speaks while the AI is writing**: the first sentence is spoken as soon as it is complete, without waiting for the end of the reply. Measured on a virtual satellite: 3 s between the end of the question and the start of the reply, down from 5 s (five-sentence reply). Requires an up-to-date AI Assistant; otherwise the reply arrives in one piece, as before.
 - Voice split into sentences: the end of a sentence no longer waits for the next one.
+- Streamed reply also with Claude and Gemini as the provider of the AI Assistant MCP client, in addition to OpenAI-compatible providers.
+- Plugin update: commands added by a new version (for example "Stop playback" and "Last error") are now created on satellites already configured, without having to save each one.
+- Running timers are no longer lost when Jeedom sets a satellite's encryption key.
 
 ## 0.3.0 (2026-11-25)
 
