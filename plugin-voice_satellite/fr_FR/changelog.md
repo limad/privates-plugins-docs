@@ -11,6 +11,9 @@ pluginId: voice_satellite
 
 - **Le satellite parle pendant que l'IA écrit** : la première phrase est dite dès qu'elle est complète, sans attendre la fin de la réponse. Mesuré sur un satellite virtuel : 3 s entre la fin de la question et le début de la réponse, contre 5 s auparavant (réponse de cinq phrases). Nécessite AI Assistant à jour ; sinon la réponse arrive d'un bloc, comme avant.
 - Voix découpée en phrases : la fin d'une phrase n'attend plus la phrase suivante.
+- Réponse au fil de l'eau aussi avec Claude et Gemini comme fournisseur du client MCP d'AI Assistant, en plus des fournisseurs OpenAI-compatibles.
+- Mise à jour du plugin : les commandes ajoutées par une nouvelle version (par exemple « Arrêter la lecture » et « Dernière erreur ») sont maintenant créées sur les satellites déjà configurés, sans avoir à sauvegarder chacun.
+- Les minuteurs en cours ne sont plus perdus quand Jeedom pose la clé de chiffrement d'un satellite.
 
 ## 0.3.0 (2026-11-25)
 

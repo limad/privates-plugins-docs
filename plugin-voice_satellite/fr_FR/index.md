@@ -129,7 +129,7 @@ Le choix se limite aux mots d'appel que le satellite connaît. Les modèles offi
 
 ## Voix
 
-Le satellite parle dès la première phrase de la réponse, pendant que l'IA écrit encore la suite : chaque phrase est synthétisée dès qu'elle est complète (satellites en FLAC, le format par défaut ; fournisseur OpenAI-compatible comme DeepSeek, Mistral, Groq ou OpenAI pour le client MCP d'AI Assistant, sinon la réponse arrive d'un bloc puis est dite phrase par phrase). Les phrases courtes déjà dites (réponses des minuteurs, message d'échec, annonces répétées) sont gardées en mémoire quelques heures et repartent sans nouvelle synthèse.
+Le satellite parle dès la première phrase de la réponse, pendant que l'IA écrit encore la suite : chaque phrase est synthétisée dès qu'elle est complète (satellites en FLAC, le format par défaut ; client MCP d'AI Assistant sur Claude, Gemini ou un fournisseur OpenAI-compatible comme DeepSeek, Mistral, Groq ou OpenAI ; sinon la réponse arrive d'un bloc puis est dite phrase par phrase). Les phrases courtes déjà dites (réponses des minuteurs, message d'échec, annonces répétées) sont gardées en mémoire quelques heures et repartent sans nouvelle synthèse.
 
 ## Santé
 
