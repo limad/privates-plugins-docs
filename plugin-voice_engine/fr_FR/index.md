@@ -16,10 +16,10 @@ Chaque équipement est un **profil** : un fournisseur, un modèle et une voix. V
 
 | Fournisseur | Voix | Écoute | Clé | Remarques |
 |---|---|---|---|---|
-| **Compatible OpenAI** | oui | oui | selon le serveur | 9router (voix edge-tts et google-tts **gratuites**), ai_proxy (voix et écoute Mistral Voxtral avec le compte Mistral d'ai_proxy), OpenAI (`gpt-4o-mini-tts`, consignes de ton), Groq (écoute Whisper, offre gratuite), OpenRouter (Fish Audio, Kokoro… ; l'écoute demande au moins 0,50 $ de crédit), serveur local (Kokoro-FastAPI, Speaches, Piper). |
+| **Compatible OpenAI** | oui | oui | selon le serveur | 9router (voix edge-tts et google-tts **gratuites**), ai_proxy (voix et écoute Mistral Voxtral avec le compte Mistral d'ai_proxy), OpenAI (`gpt-4o-mini-tts`, consignes de ton, arrêté par OpenAI le 6 janvier 2027 ; écoute `gpt-transcribe`), Groq (écoute Whisper, offre gratuite), OpenRouter (Fish Audio, Kokoro… ; l'écoute demande au moins 0,50 $ de crédit), serveur local (Kokoro-FastAPI, Speaches, Piper). « Charger les voix » liste les voix Edge de 9router, les voix Marie d'ai_proxy, celles d'OpenAI ou du serveur local. |
 | **ElevenLabs** | oui | oui (Scribe) | oui | Voix très naturelles. Bouton « Charger les voix ». La clé doit avoir la permission « speech_to_text » pour l'écoute. |
 | **Mistral (Voxtral)** | oui | oui | oui | Voix Voxtral TTS (hébergée en Europe), écoute Voxtral. L'audio demande un abonnement Mistral payant (sinon « HTTP 402 »). |
-| **Gemini TTS** | oui | — | oui | 30 voix prédéfinies, style libre (« chaleureux », « chuchoté »…). |
+| **Gemini** | oui | oui | oui | 30 voix prédéfinies, style libre (« chaleureux », « chuchoté »…). Écoute par les modèles Gemini (`gemini-3.5-flash-lite` par défaut). |
 | **Cartesia (Sonic)** | oui | — | oui | La latence la plus basse. Voix françaises (dont accents canadien, belge, africain). |
 | **Google Translate** | oui | — | non | Gratuit, sans compte, qualité moyenne. Pratique en secours. |
 
@@ -53,13 +53,19 @@ Les commandes de voix n'existent que si « Ce profil parle » est coché, celles
 ## Sortie de « Dire »
 
 - **Aucune** : le son est seulement fabriqué (fichier et URL).
-- **Haut-parleur de la box** : lecture par `ffplay`. Les lectures s'enchaînent sans se chevaucher.
+- **Haut-parleur de la box** : lecture par `ffplay`. Les lectures s'enchaînent sans se chevaucher. La carte son se
+  choisit dans la configuration du plugin. **Phrase par phrase** (coché par défaut) : un long texte commence à être lu
+  dès que sa première phrase est prête, les suivantes sont fabriquées pendant la lecture.
 - **Commande Jeedom** : le son est envoyé à une commande action d'un autre plugin (Chromecast, Sonos, satellite
   vocal, navigateur kiosque…). Le « Contenu envoyé » accepte `#url#` (adresse du son), `#text#` (texte lu) et
-  `#file#` (chemin local).
+  `#file#` (chemin local). **Son au fil de l'eau** : la commande reçoit tout de suite une adresse dont le son arrive
+  pendant sa fabrication (la lecture commence plus tôt) ; à décocher si un lecteur exige un fichier complet.
+- **Haut-parleur d'une autre machine (SSH)** : le son est copié sur la machine (Raspberry Pi, PC…) puis joué par la
+  commande de lecture du profil (`mpg123 -q #file#` par défaut). Connexion par mot de passe ou par clé ; l'empreinte
+  de la machine est notée à la première connexion, et une machine qui change d'empreinte est refusée.
 
 Dans un scénario, le champ **Titre** de « Dire » ou « Lire un son » peut choisir une autre sortie que celle du profil :
-`none`, `local` ou `cmd`.
+`none`, `local`, `cmd` ou `ssh`.
 
 ## Liens vers les sons
 

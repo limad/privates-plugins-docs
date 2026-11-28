@@ -11,6 +11,12 @@ pluginId: voice_engine
 
 ### 27/11/2026
 
+- **Nouveautés** : « Charger les voix » fonctionne aussi pour 9router (voix Edge), ai_proxy (voix Marie) et OpenAI ;
+  choix de la carte son de la box ; lecture **phrase par phrase** sur la box (un long texte commence plus tôt) ;
+  **son au fil de l'eau** vers un autre plugin (Chromecast, Sonos…) ; nouvelle sortie **haut-parleur d'une autre
+  machine (SSH)** ; **écoute avec Gemini**.
+- **Corrections** : fin des sons courts plus propre sur la box ; message clair quand un fournisseur n'a plus de
+  crédit (au lieu de « clé refusée ») ; écoute OpenAI passée au modèle qui remplace ceux arrêtés en février 2027.
 - **Nouveautés et corrections** : bouton « Importer depuis AI Assistant » dans la configuration, qui reprend les clés
   des fournisseurs (les clés déjà saisies sont gardées) ; le préréglage ai_proxy trouve tout seul l'adresse et la clé
   d'ai_proxy, et sait maintenant parler en plus d'écouter (voix Mistral, avec ai_proxy à jour).
