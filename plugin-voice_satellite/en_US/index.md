@@ -24,7 +24,8 @@ Any device exposing a voice assistant through the ESPHome native API:
 
 ## Requirements
 
-- The **AI Assistant** plugin, with a default MCP client and a configured **voice server** (speech-to-text and voice).
+- The **AI Assistant** plugin, with a default MCP client (it produces the reply).
+- For listening and speech: the **Voice Engine** plugin (a speech profile and a listening profile), or else AI Assistant's **voice server**.
 - The plugin dependencies: Python ≥ 3.11 in a dedicated environment, `aioesphomeapi`, `pysilero-vad` and `ffmpeg`. On Debian 11, Python 3.11 is compiled, so the installation can take a long time.
 
 ## Adding a satellite
@@ -47,13 +48,14 @@ The key is stored encrypted. When something goes wrong, the connection shows the
 - **Maximum listening**: maximum listening time after the wake word.
 - **Reply timeout**: time given to AI Assistant.
 - **Listen again after a question**: when the reply ends with a question, the satellite listens again without the wake word.
+- **Voice engine**, **Speech profile**, **Listening profile**: who transcribes and who speaks. In automatic mode, Voice Engine is used as soon as a profile is chosen (here, on a satellite, or as Voice Engine's default profile); otherwise AI Assistant's voice settings, as before.
 - **Failure message**: sentence spoken when no reply could be produced.
 - **Audio port** and **box address**: where the satellites download the voice.
 - **Control port**: local port Jeedom uses to control the daemon.
 
 Listening and reply settings apply without a restart. Network settings (ports, addresses) require restarting the daemon.
 
-On each satellite, **End of speech**, **Maximum listening** and **Listen again after a question** override the plugin setting (empty = plugin setting). A noisy room often needs a longer end of speech.
+On each satellite, **End of speech**, **Maximum listening**, **Listen again after a question**, **Speech profile** and **Listening profile** override the plugin setting (empty = plugin setting): one voice per room, for example. A noisy room often needs a longer end of speech.
 
 ## Satellite room
 
@@ -129,7 +131,7 @@ You can only choose among the wake words the satellite knows. The official ESPHo
 
 ## Voice
 
-The satellite starts speaking at the first sentence of the reply, while the AI is still writing the rest: each sentence is synthesised as soon as it is complete (FLAC satellites, the default format; OpenAI-compatible provider such as DeepSeek, Mistral, Groq or OpenAI for the AI Assistant MCP client, otherwise the reply arrives in one piece and is then spoken sentence by sentence). Short sentences already spoken (timer replies, failure message, repeated announcements) are kept in memory for a few hours and replayed without a new synthesis.
+The satellite starts speaking at the first sentence of the reply, while the AI is still writing the rest: each sentence is synthesised as soon as it is complete (FLAC satellites, the default format; AI Assistant MCP client on Claude, Gemini or an OpenAI-compatible provider such as DeepSeek, Mistral, Groq or OpenAI; otherwise the reply arrives in one piece and is then spoken sentence by sentence). Short sentences already spoken (timer replies, failure message, repeated announcements) are kept in memory for a few hours and replayed without a new synthesis.
 
 ## Health
 
