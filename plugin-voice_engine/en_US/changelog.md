@@ -7,6 +7,21 @@ pluginId: voice_engine
 
 # Voice Engine changelog
 
+## Version in development
+
+### 27/11/2026
+
+- **New features**: "Load voices" also works for 9router (Edge voices), ai_proxy (Marie voices) and OpenAI; choice
+  of the box sound card; **sentence by sentence** playback on the box (a long text starts sooner); **streamed sound**
+  to another plugin (Chromecast, Sonos…); new **speaker of another machine (SSH)** output; **listening with Gemini**.
+- **Fixes**: cleaner end of short sounds on the box; clear message when a provider has run out of credit (instead of
+  "key refused"); OpenAI listening moved to the model that replaces those shut down in February 2027.
+- **New features and fixes**: "Import from AI Assistant" button in the configuration, which copies the provider keys
+  (keys already entered are kept); the ai_proxy preset now finds the ai_proxy address and key on its own, and can now speak as well as listen
+  (Mistral voices, with an up-to-date ai_proxy).
+- **Fix**: the 9router preset now takes the key from the 9Router plugin on its own; without it, recent 9router
+  versions refused to speak.
+
 ## 0.1.0 (2026-11-26)
 
 - **First version**: one equipment per voice or listening profile, with the provider of your choice: 9router and

@@ -16,10 +16,10 @@ evening, a fast voice for alerts, a Voxtral listening profile…) and use them i
 
 | Provider | Voice | Listening | Key | Notes |
 |---|---|---|---|---|
-| **OpenAI-compatible** | yes | yes | depends on the server | 9router (**free** edge-tts and google-tts voices), ai_proxy (Voxtral), OpenAI (`gpt-4o-mini-tts`, tone instructions), Groq (Whisper listening, free tier), OpenRouter (Fish Audio, Kokoro…; listening requires at least $0.50 of credit), local server (Kokoro-FastAPI, Speaches, Piper). |
+| **OpenAI-compatible** | yes | yes | depends on the server | 9router (**free** edge-tts and google-tts voices), ai_proxy (Mistral Voxtral voice and listening with ai_proxy's Mistral account), OpenAI (`gpt-4o-mini-tts`, tone instructions, shut down by OpenAI on January 6, 2027; listening `gpt-transcribe`), Groq (Whisper listening, free tier), OpenRouter (Fish Audio, Kokoro…; listening requires at least $0.50 of credit), local server (Kokoro-FastAPI, Speaches, Piper). "Load voices" lists the 9router Edge voices, the ai_proxy Marie voices, and the OpenAI or local server voices. |
 | **ElevenLabs** | yes | yes (Scribe) | yes | Very natural voices. "Load voices" button. The key needs the "speech_to_text" permission for listening. |
 | **Mistral (Voxtral)** | yes | yes | yes | Voxtral TTS voice (hosted in Europe), Voxtral listening. Audio requires a paid Mistral subscription (otherwise "HTTP 402"). |
-| **Gemini TTS** | yes | — | yes | 30 preset voices, free style ("warm", "whispered"…). |
+| **Gemini** | yes | yes | yes | 30 preset voices, free style ("warm", "whispered"…). Listening with Gemini models (`gemini-3.5-flash-lite` by default). |
 | **Cartesia (Sonic)** | yes | — | yes | The lowest latency. French voices (including Canadian, Belgian and African accents). |
 | **Google Translate** | yes | — | no | Free, no account, average quality. Handy as a fallback. |
 
@@ -53,13 +53,19 @@ Voice commands only exist when "This profile speaks" is checked, listening comma
 ## "Say" output
 
 - **None**: the sound is only made (file and URL).
-- **Box speaker**: played by `ffplay`. Playbacks follow one another without overlapping.
+- **Box speaker**: played by `ffplay`. Playbacks follow one another without overlapping. The sound card is chosen in
+  the plugin configuration. **Sentence by sentence** (ticked by default): a long text starts playing as soon as its
+  first sentence is ready, the next ones are made during playback.
 - **Jeedom command**: the sound is sent to an action command of another plugin (Chromecast, Sonos, voice satellite,
   kiosk browser…). The "Content sent" field accepts `#url#` (sound address), `#text#` (spoken text) and `#file#`
-  (local path).
+  (local path). **Streamed sound**: the command immediately receives an address whose sound arrives while it is being
+  made (playback starts sooner); untick it if a player needs a complete file.
+- **Speaker of another machine (SSH)**: the sound is copied to the machine (Raspberry Pi, PC…) then played by the
+  profile's playback command (`mpg123 -q #file#` by default). Password or key login; the machine's fingerprint is
+  recorded on first connection, and a machine whose fingerprint changes is refused.
 
 In a scenario, the **Title** field of "Say" or "Play sound" can pick another output than the profile's: `none`,
-`local` or `cmd`.
+`local`, `cmd` or `ssh`.
 
 ## Links to sounds
 
